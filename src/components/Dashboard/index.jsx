@@ -1,10 +1,10 @@
 /** @format */
 
-import React from "react";
+import React from 'react';
 // import NavBar from "../Header/NavBar";
 
-const Index = () => {
+const Dashboard = () => {
   return <></>;
 };
 
-export default Index;
+export default Dashboard;
