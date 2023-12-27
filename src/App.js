@@ -5,18 +5,18 @@ import { Route, Routes } from "react-router-dom";
 import "./App.css";
 import Index from "./components/Dashboard/Index";
 import PageNotFound from "./components/PageNotFound";
-import Footer from "./components/Footer/Index";
-import NavBar from "./components/Header/NavBar";
+
+import Layout from "./components/Layouts/Layout";
 
 function App() {
   return (
     <div className="App">
-      <NavBar />
-      <Routes>
-        <Route path="/" element={<Index />} />
-        <Route path="*" element={<PageNotFound />} />
-      </Routes>
-      <Footer />
+      <Layout>
+        <Routes>
+          <Route path="/" element={<Index />} />
+          <Route path="*" element={<PageNotFound />} />
+        </Routes>
+      </Layout>
     </div>
   );
 }
