@@ -1,10 +1,10 @@
 /** @format */
 
 // api.js
-import axios from "axios";
+import axios from 'axios';
 
 const instance = axios.create({
-  baseURL: "https://api.example.com", // Replace with your API base URL
+  baseURL: 'http://localhost:4000/api/v1', // Replace with your API base URL
   timeout: 5000, // Adjust timeout as needed
 });
 
