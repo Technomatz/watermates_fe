@@ -1,10 +1,9 @@
 /** @format */
 
 import React from "react";
-// import NavBar from "../Header/NavBar";
 
 const Index = () => {
-  return <></>;
+  return <div>Hello world</div>;
 };
 
 export default Index;
