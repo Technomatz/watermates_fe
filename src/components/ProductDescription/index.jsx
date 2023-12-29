@@ -7,11 +7,11 @@ function ProductDescription() {
         <div className="flex flex-wrap -mx-4">
           <div className="w-full px-4 md:w-1/2 ">
             <div className="sticky top-0 z-50 overflow-hidden ">
-              <div className="relative mb-6 lg:mb-10 lg:h-2/4 ">
+              <div className="relative mb-6 lg:mb-10 lg:h-2/4">
                 <img
                   src="https://media.istockphoto.com/id/178035079/photo/three-blue-water-cooler-bottles-isolated-on-white.jpg?s=612x612&w=0&k=20&c=oJnhg6E5rRxV8W-VLHg3ehyQNDMZlYwx3ia1l2d_Mx8="
                   alt=""
-                  className="object-cover w-full lg:h-full "
+                  className="object-fill w-full lg:h-full"
                 />
               </div>
               <div className="flex-wrap hidden md:flex ">
@@ -23,7 +23,7 @@ function ProductDescription() {
                     <img
                       src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSJ4dnY6MuvSy4PZSJsxN4f9QIDsnwC0jyjvkz4sCutXQ&s"
                       alt=""
-                      className="object-cover w-full lg:h-20"
+                      className="object-fill w-full lg:h-20 sm:h-20"
                     />
                   </a>
                 </div>
@@ -35,7 +35,7 @@ function ProductDescription() {
                     <img
                       src="https://5.imimg.com/data5/ANDROID/Default/2022/1/SV/WH/WM/19104569/product-jpeg.jpg"
                       alt=""
-                      className="object-cover w-full lg:h-20"
+                      className="object-fill w-full lg:h-20 sm:h-20"
                     />
                   </a>
                 </div>
@@ -47,7 +47,7 @@ function ProductDescription() {
                     <img
                       src="https://img.freepik.com/free-photo/water-container_1308-39989.jpg?size=626&ext=jpg&ga=GA1.1.1546980028.1703203200&semt=ais"
                       alt=""
-                      className="object-cover w-full lg:h-20"
+                      className="object-fill w-full lg:h-20 sm:h-20"
                     />
                   </a>
                 </div>
@@ -59,7 +59,7 @@ function ProductDescription() {
                     <img
                       src="https://4.imimg.com/data4/UL/QJ/MY-2814525/water-jar-500x500.jpg"
                       alt=""
-                      className="object-cover w-full lg:h-20"
+                      className="object-fill w-full lg:h-20 sm:h-20"
                     />
                   </a>
                 </div>
