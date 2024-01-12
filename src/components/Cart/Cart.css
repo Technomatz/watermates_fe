@@ -1,0 +1,98 @@
+.OuterCart {
+  display: flex;
+  justify-content: center;
+  position: relative;
+  bottom: 25px;
+}
+
+.priceTag {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 20px;
+  margin-left: 1.5rem;
+}
+
+.cardscontainer {
+  display: flex;
+  gap: 10px;
+}
+
+.leftContainers {
+  display: flex;
+  flex-direction: column;
+  max-width: 50vw;
+  /* margin-top: 20px; */
+  padding: 20px 15px;
+}
+
+.checkboxContainer {
+  display: flex;
+  border: 1px dashed #078d73;
+  border-radius: 10px;
+  padding: 10px 20px;
+  background: #eaf9f5;
+  gap: 10px;
+}
+
+.totalprice {
+  font-size: 30px;
+}
+
+.outercontainer {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  max-width: 50vw;
+  margin-top: 20px;
+  padding: 30px 25px;
+}
+
+.ContainerDelivery {
+  display: flex;
+  margin-top: 30px;
+  gap: 40px;
+  justify-content: center;
+}
+
+.cartitems {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50px;
+  /* padding: '15px'; */
+  background: yellow;
+  min-height: 25px;
+  min-width: 25px;
+  position: relative;
+  bottom: 1rem;
+  right: 10px;
+}
+
+.quantityDiv {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 15rem;
+}
+
+.profileList {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.descDiv {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+@media screen and (min-width: '768px') {
+  .quantityDiv {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 5rem;
+  }
+}

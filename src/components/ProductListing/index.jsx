@@ -70,7 +70,7 @@ const data = [
 
 function ProductListingPAge() {
   return (
-    <Box sx={{ flexGrow: 1, padding: '5%' }}>
+    <Box sx={{ flexGrow: 1, padding: '5%', marginTop: '1rem' }}>
       <Grid container spacing={1}>
         <Grid
           container
