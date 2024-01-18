@@ -1,6 +1,6 @@
 /** @format */
 
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Route, Routes } from 'react-router-dom';
 import './App.css';
 import Index from './components/Dashboard/Index';
@@ -11,8 +11,16 @@ import Login from './components/Login/Index';
 import SignUp from './components/SignUp/Index';
 import ProductListingPAge from './components/ProductListing';
 import ProductDescription from './components/ProductDescription';
+import { initializeApp } from 'firebase/app';
+// import { getAnalytics } from 'firebase/analytics';
+import { firebaseConfig } from './firebase';
 
 function App() {
+  // const app = initializeApp(firebaseConfig);
+  // const analytics = getAnalytics(app);
+  useEffect(() => {
+    initializeApp(firebaseConfig);
+  }, []);
   return (
     <div className="App">
       {/* <NavBar /> */}
