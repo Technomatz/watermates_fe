@@ -1,123 +1,146 @@
-/** @format */
+import { Box } from '@mui/material';
+import React from 'react';
+import './Footer.css';
+import { Link } from 'react-router-dom';
+import { Facebook, Instagram, Twitter, YouTube } from '@mui/icons-material';
 
-import React from "react";
-import { Container, Grid, Typography, Link } from "@mui/material";
-
-const Footer = () => {
+function Footer() {
   return (
-    <div className="footer">
-      <Container maxWidth="lg">
-        <Grid container spacing={3}>
-          {/* About Us */}
-          <Grid item xs={12} sm={6} md={3}>
-            <Typography variant="h6">About Us</Typography>
-            <ul>
-              <li>About Us</li>
-              <li>
-                <Link href="https://www.bisleri.com/our-journey">
-                  Our Journey
-                </Link>
-              </li>
-              {/* ... Other links ... */}
-              <li>
-                <Link href="https://www.bisleri.com/annual-return">
-                  Annual Return
-                </Link>
-              </li>
-            </ul>
-          </Grid>
+    <>
+      <div>
+        <Box className="parentDiv">
+          <Box className="internalparentDiv">
+            <Box className="childDiv">
+              <h2 className="footerheadeing">About us</h2>
+              <ul>
+                <li>
+                  <Link>Our Journey </Link>
+                </li>
+                <li>
+                  <Link>What makes us Stand Apart</Link>
+                </li>
+                <li>
+                  <Link>114 Quality Test</Link>
+                </li>
+                <li>
+                  <Link>The Promise of 10</Link>
+                </li>
+                <li>
+                  <Link>Vision Mission & Values</Link>
+                </li>
+                <li>
+                  <Link>Leadership Team</Link>
+                </li>
+                <li>
+                  <Link>Careers</Link>
+                </li>
+                <li>
+                  <Link>Book a plant visit </Link>
+                </li>
+                <li>
+                  <Link> Terms & Conditions </Link>
+                </li>
+                <li>
+                  <Link>Cancelation & Refund Policy </Link>
+                </li>
+                <li>
+                  <Link> FAQs </Link>
+                </li>
+                <li>
+                  <Link>Annual Return </Link>
+                </li>
+              </ul>
+            </Box>
+            <Box className="childDiv">
+              <h4 className="footerheadeing">Brands</h4>
+              <ul>
+                <li>
+                  <Link>Bisleri</Link>{' '}
+                </li>
+                <li>
+                  <Link>Vedica </Link>{' '}
+                </li>
+                <li>
+                  <Link>Spyci </Link>{' '}
+                </li>
+                <li>
+                  <Link>Limonata </Link>{' '}
+                </li>
+                <li>
+                  <Link>Bisleri Soda</Link>{' '}
+                </li>
+              </ul>
+              <h4 className="footerheadeing">News Rooms</h4>
+              <ul>
+                <li>
+                  <Link>Press Release </Link>
+                </li>
+                <li>
+                  <Link>News </Link>
+                </li>
+                <li>
+                  <Link>Blogs </Link>
+                </li>
+                <li>
+                  <Link>UAE</Link>{' '}
+                </li>
+              </ul>
+            </Box>
+            <Box className="childDiv">
+              <Box className="childDiv">
+                <h4 className="footerheadeing">Become a Distributor</h4>
+                <ul>
+                  <Link>
+                    <li>Apply for Bisleri Leadership</li>
+                  </Link>
+                </ul>
+              </Box>
+              <br />
+              <Box>
+                <h4 className="footerheadeing">
+                  {' '}
+                  <Link> Greener Promise </Link>
+                </h4>
+              </Box>
+            </Box>
 
-          {/* Brands */}
-          <Grid item xs={12} sm={6} md={3}>
-            <Typography variant="h6">Brands</Typography>
-            <ul>
-              <li>Brands</li>
-              <li>
-                <Link href="https://www.bisleri.com/bisleri-mineral-water">
-                  Bisleri
-                </Link>
-              </li>
-              {/* ... Other brand links ... */}
-              <li>
-                <Link href="https://www.bisleri.com/bisleri-soda">
-                  Bisleri Soda
-                </Link>
-              </li>
-            </ul>
-          </Grid>
-
-          {/* News Room */}
-          <Grid item xs={12} sm={6} md={3}>
-            <Typography variant="h6">News Room</Typography>
-            <ul>
-              <li>News Room</li>
-              <li>
-                <Link href="https://www.bisleri.com/press-release">
-                  Press Release
-                </Link>
-              </li>
-              {/* ... Other news links ... */}
-              <li>
-                <Link href="https://www.bisleri.com/blogs">Blogs</Link>
-              </li>
-            </ul>
-          </Grid>
-
-          {/* Contact Us */}
-          <Grid item xs={12} sm={6} md={3}>
-            <Typography variant="h6">Contact</Typography>
-            <ul>
-              <li>Contact</li>
-
-              <li className="email-address">
-                Email:{" "}
-                <Link href="mailto:wecare@bisleri.co.in">
-                  wecare@bisleri.co.in
-                </Link>
-              </li>
-              <li style={{ marginBottom: "10px" }}>
-                Phone: <Link href="tel:18001211007">1800-121-1007</Link>
-              </li>
-              <li style={{ marginBottom: "10px" }}>8 AM to 8 PM </li>
-              <li>Monday to Saturday </li>
-            </ul>
-          </Grid>
-        </Grid>
-
-        {/* Copyrights */}
-        <Grid container justify="space-between">
-          <Typography
-            variant="body2"
-            color="textSecondary"
-            className="copyrights-text"
-          >
-            © COPYRIGHTS 2020-21
-          </Typography>
-          <ul className="sitemap-links">
-            {/* ... Other sitemap links ... */}
-            <li>
-              <Link href="https://payments.billdesk.com/MercOnline/BisleriController">
-                Online Payment
-              </Link>
-            </li>
-            <li>
-              <Link href="https://www.bisleri.com/compliance">Compliance</Link>
-            </li>
-            <li>
-              <Link href="https://www.bisleri.com/privacy-policy">
-                Privacy Policy
-              </Link>
-            </li>
-            <li>
-              <Link href="https://www.bisleri.com/cookies-policy">
-                Cookie Policy
-              </Link>
-            </li>
-          </ul>
-        </Grid>
-      </Container>
-    </div>
+            <Box className="childDiv">
+              <h4 className="footerheadeing">Contact</h4>
+              <ul>
+                <li>
+                  <Link>Bisleri Internation Pvt. Ltd. </Link>
+                </li>
+                <li>
+                  <Link>CTS No. 525/1A/1 , Western Express Highway, </Link>
+                </li>
+                <li>
+                  <Link>Opp Hindustan Uniliver, at Chakala </Link>
+                </li>
+                <li>
+                  <Link>division,</Link>
+                </li>
+                <li>
+                  <Link>Andheri (East) , Mumbai - 400 099 </Link>
+                </li>
+              </ul>
+              <span className="contact">Email : </span>{' '}
+              <span>watermates@gmail.com</span>
+              <span className="contact">Phone : </span>{' '}
+              <span>1800-121-1001</span>
+              <h6> 8 Am To 8 PM</h6>
+              <h6> Monday To Saturday</h6>
+              <Box sx={{ display: 'flex', gap: '10px' }}>
+                <Facebook className="facebook-icon" />
+                <Twitter className="twitter-icon" />
+                <Instagram className="instagram-icon" />
+                <YouTube className="youtube-icon" />
+              </Box>
+            </Box>
+          </Box>
+        </Box>
+      </div>
+    </>
   );
-};
+}
 
 export default Footer;

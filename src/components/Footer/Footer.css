@@ -1,0 +1,100 @@
+.footerheadeing {
+  font-weight: bolder;
+}
+
+ul {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.parentDiv {
+  position: absolute;
+  bottom: 0;
+  width: 100vw;
+  background: #fac06f;
+  margin-top: 5rem;
+  display: flex;
+  justify-content: space-around;
+  padding: 20px 0px;
+  height: 100vh;
+}
+
+.childDiv {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.contact {
+  font-weight: bold;
+}
+
+.internalparentDiv {
+  width: 60vw;
+  background: #fac06f;
+  margin-top: 5rem;
+  display: flex;
+  justify-content: space-between;
+  padding: 40px 0px;
+  height: 100vh;
+}
+
+.instagram-icon {
+  background: linear-gradient(45deg, #405de6, #5851db, #ff5e62, #f77737);
+  /* border-radius: 50%;
+    /* Assuming the icon is a circle */
+  width: 30px !important;
+  /* Adjust the size as needed */
+  height: 30px !important;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  /* Set the text color to white or another suitable color */
+}
+
+.youtube-icon {
+  background: #ff0000;
+  /* YouTube Red */
+  border-radius: 50%;
+  /* Assuming the icon is a circle */
+  width: 30px !important;
+  /* Adjust the size as needed */
+  height: 30px !important;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  /* Set the text color to white or another suitable color */
+}
+
+.twitter-icon {
+  background: #1da1f2;
+  /* Twitter Blue */
+  border-radius: 50%;
+  /* Assuming the icon is a circle */
+  width: 30px !important;
+  /* Adjust the size as needed */
+  height: 30px !important;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  /* Set the text color to white or another suitable color */
+}
+
+.facebook-icon {
+  background: #1877f2;
+  /* Facebook Blue */
+  border-radius: 50%;
+  /* Assuming the icon is a circle */
+  width: 30px !important;
+  /* Adjust the size as needed */
+  height: 30px !important;
+  /* display: flex;
+    justify-content: center; */
+  align-items: center;
+  color: white;
+  /* Set the text color to white or another suitable color */
+}

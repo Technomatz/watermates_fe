@@ -1,0 +1,35 @@
+.childBox {
+  display: flex;
+  gap: 20px;
+}
+
+.profilepageicons {
+  color: red;
+}
+
+.iconwithtitle {
+  display: flex;
+  justify-content: flex-start;
+  gap: 5px;
+}
+
+.scrollable-container {
+  max-height: 200px;
+  /* Set your desired max height */
+  overflow-y: auto;
+  scrollbar-width: thin;
+  /* For Firefox */
+  scrollbar-color: transparent transparent;
+  /* For Firefox */
+  -ms-overflow-style: none;
+  /* For IE and Edge */
+}
+
+.scrollable-container::-webkit-scrollbar {
+  width: 8px;
+  /* Set your desired scrollbar width */
+}
+
+.scrollable-container::-webkit-scrollbar-thumb {
+  background-color: transparent;
+}
