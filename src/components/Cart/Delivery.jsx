@@ -18,6 +18,7 @@ import {
 
 import './Cart.css';
 import AddressPopup from './AddressPopup';
+import { useSelector } from 'react-redux';
 
 function Delivery({ currentStape, setCurrentStape }) {
   const [isModalOpen, setModalOpen] = useState(false);
@@ -25,6 +26,7 @@ function Delivery({ currentStape, setCurrentStape }) {
   const [selectedAddressIndex, setSelectedAddressIndex] = useState(null);
   const [defaultAddressIndex, setDefaultAddressIndex] = useState(0);
 
+  const userAddress = useSelector((state) => state.user.user);
   const handleSubmitForm = (data) => {
     if (selectedAddressIndex !== null) {
       // Edit existing address
@@ -115,7 +117,6 @@ function Delivery({ currentStape, setCurrentStape }) {
       name: 'Water Mates',
       description: 'Thanks for purchasing',
       handler: async function (response) {
-        console.log(response, '//////////////response');
         alert(response.razorpay_payment_id);
         alert('Payment successful');
       },
@@ -188,8 +189,8 @@ function Delivery({ currentStape, setCurrentStape }) {
                   )}
                 </Typography>
 
-                {Addresess &&
-                  Addresess.map((address, index) => (
+                {userAddress &&
+                  userAddress?.map((address, index) => (
                     <Card
                       sx={{
                         boxShadow: '0 3px 20px rgba(7,141,115,.16)',

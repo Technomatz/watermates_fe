@@ -1,11 +1,35 @@
-import React from 'react';
-import { useNavigate } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
+import { useSelector, useDispatch } from 'react-redux';
+import { toggleFavorite } from '../../redux/reducers/FavoriteReducer';
 
 function ProductDescription() {
+  const [localIsFavorite, setLocalIsFavorite] = useState([]);
+
+  const dispatch = useDispatch();
   const navigate = useNavigate();
+  const { id } = useParams();
   const handleClick = () => {
     navigate('/cart');
   };
+  const isFavorited = useSelector((state) => state.favorite);
+
+  useEffect(() => {
+    if (Array.isArray(isFavorited)) {
+      setLocalIsFavorite(
+        isFavorited.map((item) => item.id).includes(parseInt(id)),
+      );
+    }
+  }, [isFavorited, id]);
+
+  const handleFavoriteClick = () => {
+    // Dispatch the toggleFavorite action with the id from params
+    dispatch(toggleFavorite({ id: parseInt(id) }));
+  };
+  const removeFromWishlistClassName = localIsFavorite
+    ? 'bg-red-500'
+    : 'bg-blue-500';
+
   return (
     <section className="overflow-hidden bg-white py-11 font-poppins dark:bg-gray-800">
       <div className="max-w-6xl px-4 py-4 mx-auto lg:py-8 md:px-6">
@@ -220,12 +244,17 @@ function ProductDescription() {
                     className="flex items-center justify-center w-full p-4 text-blue-500 border border-blue-500 rounded-md dark:text-gray-200 dark:border-blue-600 hover:bg-blue-600 hover:border-blue-600 hover:text-gray-100 dark:bg-blue-600 dark:hover:bg-blue-700 dark:hover:border-blue-700 dark:hover:text-gray-300"
                     onClick={handleClick}
                   >
-                    Add to Cart
+                    Add to cart
                   </button>
                 </div>
                 <div className="w-full px-4 mb-4 lg:mb-0 lg:w-1/2">
-                  <button className="flex items-center justify-center w-full p-4 text-blue-500 border border-blue-500 rounded-md dark:text-gray-200 dark:border-blue-600 hover:bg-blue-600 hover:border-blue-600 hover:text-gray-100 dark:bg-blue-600 dark:hover:bg-blue-700 dark:hover:border-blue-700 dark:hover:text-gray-300">
-                    Add to wishlist
+                  <button
+                    className={`flex items-center justify-center w-full p-4 text-white border rounded-md dark:text-gray-200 ${removeFromWishlistClassName}`}
+                    onClick={handleFavoriteClick}
+                  >
+                    {localIsFavorite
+                      ? 'Remove From Wishlist'
+                      : 'Add in Wishlist'}
                   </button>
                 </div>
               </div>

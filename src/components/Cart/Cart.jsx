@@ -6,6 +6,7 @@ import Delivery from './Delivery';
 import { Divider } from '@mui/material';
 function Cart() {
   const [currentStape, setCurrentStape] = useState(0);
+
   return (
     <div
       style={{

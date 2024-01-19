@@ -10,6 +10,7 @@ import {
 
 import '../Cart/Cart.css';
 import AddressPopup from '../Cart/AddressPopup';
+import { useSelector } from 'react-redux';
 // import AddressPopup from './AddressPopup';
 
 function Delivery() {
@@ -17,7 +18,7 @@ function Delivery() {
   const [Addresess, setAddresess] = useState([]);
   const [selectedAddressIndex, setSelectedAddressIndex] = useState(null);
   const [defaultAddressIndex, setDefaultAddressIndex] = useState(0);
-
+  const userAddress = useSelector((state) => state.user.user);
   const handleSubmitForm = (data) => {
     if (selectedAddressIndex !== null) {
       // Edit existing address
@@ -177,8 +178,8 @@ function Delivery() {
                 )}
               </Typography>
               <div className="scrollable-container">
-                {Addresess &&
-                  Addresess.map((address, index) => (
+                {userAddress &&
+                  userAddress?.map((address, index) => (
                     <Card
                       sx={{
                         boxShadow: '0 3px 20px rgba(7,141,115,.16)',

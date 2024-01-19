@@ -1,19 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-const initialState = {
-  fullName: '',
-  mobile: '',
-  currLocation: '',
-  selectAddress: '',
-  pinCode: '',
-  city: '',
-  state: '',
-  roomNumber: '',
-  roadName: '',
-  locality: '',
-  alternateMobileNumber: '',
-  landmark: '',
-};
+const initialState = { user: [] };
 
 const userSlice = createSlice({
   name: 'user',
@@ -21,10 +8,10 @@ const userSlice = createSlice({
   reducers: {
     createUserAddress: (state, action) => {
       state.isLoggedIn = true;
-      state.user = action.payload;
+      state.user = [...state.user, action.payload];
     },
     updateUserAddress: (state, action) => {
-      state.user = { ...state.user, ...action.payload };
+      state.user = [...state.user, ...action.payload];
     },
     clearUserAddress: (state) => {
       state.isLoggedIn = false;

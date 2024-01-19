@@ -1,5 +1,6 @@
 import React from 'react';
 import { SnackbarProvider } from 'notistack';
+import 'react-toastify/dist/ReactToastify.css';
 
 import ReactDOM from 'react-dom/client';
 import './index.css';
@@ -8,6 +9,7 @@ import reportWebVitals from './reportWebVitals';
 import { BrowserRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import store from './redux/store';
+import { ToastContainer } from 'react-toastify';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -15,6 +17,9 @@ root.render(
     <BrowserRouter>
       <SnackbarProvider maxSnack={3}>
         <App />
+        <ToastContainer />
+        {/* Same as */}
+        <ToastContainer />
       </SnackbarProvider>
     </BrowserRouter>
   </Provider>,
