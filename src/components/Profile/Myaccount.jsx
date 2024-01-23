@@ -6,7 +6,9 @@ import { PermIdentity } from '@mui/icons-material';
 import { useSelector } from 'react-redux';
 
 const genders = ['Male', 'Female', 'Other'];
-
+const renderInputLabel = (label, value) => {
+  return value ? label : '';
+};
 const MyAccount = () => {
   const [formData, setFormData] = useState({
     name: '',
@@ -15,8 +17,7 @@ const MyAccount = () => {
     gender: '',
     birthday: '',
   });
-  const user = useSelector((state) => state.user);
-  console.log(formData);
+  const user = useSelector((state) => state.user.user);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -24,11 +25,11 @@ const MyAccount = () => {
       ...prevData,
       [name]: value,
     }));
+    console.log(formData);
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Add your form submission logic here
   };
 
   return (
@@ -53,19 +54,19 @@ const MyAccount = () => {
         </Box>
         <Box className="childBox">
           <TextField
-            label="Name"
+            label={renderInputLabel('Name', user[0]?.fullName)}
             name="name"
-            value={user?.user?.fullName}
+            value={user[0]?.fullName}
             onChange={handleChange}
             fullWidth
             margin="normal"
           />
 
           <TextField
-            label="Email"
+            label={renderInputLabel('Email', user[0]?.email)}
             name="email"
             type="email"
-            value={user?.user?.email}
+            value={user[0]?.email}
             onChange={handleChange}
             fullWidth
             margin="normal"
@@ -103,9 +104,9 @@ const MyAccount = () => {
         </Box>
         <Box>
           <TextField
-            label="Phone Number"
+            label={renderInputLabel('Phone Number', user[0]?.mobile)}
             name="phoneNumber"
-            value={user?.user?.mobile}
+            value={user[0]?.mobile}
             onChange={handleChange}
             fullWidth
             margin="normal"

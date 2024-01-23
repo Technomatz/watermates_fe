@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import {
   Button,
   Dialog,
@@ -12,7 +12,10 @@ import {
 } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
 import { enqueueSnackbar } from 'notistack';
-import { createUserAddress } from '../../redux/reducers/userReducer';
+import {
+  createUserAddress,
+  updateUserAddress,
+} from '../../redux/reducers/userReducer';
 export default function AddressPopup({
   isModalOpen,
   setModalOpen,
@@ -20,9 +23,10 @@ export default function AddressPopup({
   editAddress,
 }) {
   const dispatch = useDispatch();
-  // const user = useSelector((state) => state.user);
+  const user = useSelector((state) => state.user.user);
 
   const [formData, setFormData] = useState({
+    id: user.length.toString(),
     fullName: '',
     mobile: '',
     email: '',
@@ -39,11 +43,10 @@ export default function AddressPopup({
 
   useEffect(() => {
     if (editAddress) {
-      // If editAddress prop is provided, set the form data to the existing address data
       setFormData(editAddress);
     } else {
-      // Reset form data when the modal is opened for adding a new address
       setFormData({
+        id: user.length.toString(),
         fullName: '',
         mobile: '',
         email: '',
@@ -58,7 +61,7 @@ export default function AddressPopup({
         landmark: '',
       });
     }
-  }, [editAddress, isModalOpen]);
+  }, [editAddress, isModalOpen, user.length]);
 
   const handleClose = () => {
     setModalOpen(!isModalOpen);
@@ -73,15 +76,29 @@ export default function AddressPopup({
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    dispatch(createUserAddress(formData));
+
+    if (editAddress) {
+      dispatch(
+        updateUserAddress({ id: formData.id, updatedAddress: formData }),
+      );
+      enqueueSnackbar('Address Updated Successfully', {
+        variant: 'success',
+        autoHideDuration: 3000,
+        anchorOrigin: { horizontal: 'left', vertical: 'top' },
+      });
+    } else {
+      dispatch(createUserAddress(formData));
+      enqueueSnackbar('Address Added Successfully', {
+        variant: 'success',
+        autoHideDuration: 3000,
+        anchorOrigin: { horizontal: 'left', vertical: 'top' },
+      });
+    }
+
     onSubmit(formData);
-    enqueueSnackbar('Address Added Successfully', {
-      variant: 'success',
-      autoHideDuration: 3000,
-      anchorOrigin: { horizontal: 'left', vertical: 'top' },
-    });
     handleClose();
   };
+
   return (
     <Dialog open={isModalOpen} onClose={handleClose} maxWidth="md" fullWidth>
       <Box

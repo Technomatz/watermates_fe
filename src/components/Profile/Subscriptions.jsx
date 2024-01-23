@@ -1,13 +1,50 @@
 import React from 'react';
+import '../Cards/ProductCard.css';
+import { useSelector } from 'react-redux';
+import { Box, Grid, Typography } from '@mui/material';
 import Sidebar from '../SideBar/Index';
 
-function Subscriptions() {
+function Subscription() {
+  const favorites = useSelector((state) => state.favorite);
+
   return (
-    <div>
+    <Box sx={{ display: 'flex', height: '100vh', overflowY: 'hidden' }}>
       <Sidebar />
-      Subscriptions
-    </div>
+      <Box
+        sx={{
+          display: 'flex',
+          flexGrow: 1,
+          padding: '5%',
+          marginTop: '1rem',
+          overflowY: 'auto',
+          gap: '10px',
+        }}
+      >
+        <Grid container spacing={1}>
+          {favorites.length !== 0 || 0 ? (
+            <Typography
+              variant="h4"
+              style={{
+                position: 'absolute',
+                top: '50%',
+                left: '45%',
+                fontFamily: 'fantasy',
+              }}
+            >
+              You have not any Subscription yet.
+            </Typography>
+          ) : (
+            <Grid
+              container
+              item
+              spacing={4}
+              sx={{ display: 'flex', flexDirection: 'row' }}
+            ></Grid>
+          )}
+        </Grid>
+      </Box>
+    </Box>
   );
 }
 
-export default Subscriptions;
+export default Subscription;
