@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import { useSnackbar } from 'notistack';
 import {
   Box,
   Button,
@@ -18,40 +17,44 @@ import {
 
 import './Cart.css';
 import AddressPopup from './AddressPopup';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { toast } from 'react-toastify';
+import {
+  clearUserAddress,
+  updateUserAddress,
+} from '../../redux/reducers/userReducer';
 
 function Delivery({ currentStape, setCurrentStape }) {
   const [isModalOpen, setModalOpen] = useState(false);
   const [Addresess, setAddresess] = useState([]);
   const [selectedAddressIndex, setSelectedAddressIndex] = useState(null);
   const [defaultAddressIndex, setDefaultAddressIndex] = useState(0);
+  const dispatch = useDispatch();
 
   const userAddress = useSelector((state) => state.user.user);
   const handleSubmitForm = (data) => {
     if (selectedAddressIndex !== null) {
-      // Edit existing address
       const updatedAddresses = [...Addresess];
       updatedAddresses[selectedAddressIndex] = data;
-      setAddresess(updatedAddresses);
+      dispatch(updateUserAddress({ id: data.id, updatedAddress: data }));
+      setAddresess(userAddress);
       setSelectedAddressIndex(null);
     } else {
-      // Add a new address
       setAddresess([...Addresess, data]);
-      setDefaultAddressIndex(Addresess.length);
+      setDefaultAddressIndex(userAddress.length);
     }
     setModalOpen(false);
   };
 
   const handleAddressOpen = () => {
     setModalOpen(!isModalOpen);
-    setSelectedAddressIndex(null); // Reset the selected address index when opening the modal
+    setSelectedAddressIndex(null);
   };
 
-  const handleDeleteAddress = (index) => {
-    const updatedAddresses = [...Addresess];
-    updatedAddresses.splice(index, 1);
-    setAddresess(updatedAddresses);
-    if (index === defaultAddressIndex) {
+  const handleDeleteAddress = (id) => {
+    console.log(id, '////id');
+    dispatch(clearUserAddress({ id }));
+    if (id === defaultAddressIndex) {
       setDefaultAddressIndex(0);
     }
   };
@@ -65,17 +68,11 @@ function Delivery({ currentStape, setCurrentStape }) {
     setCurrentStape(currentStape - 1);
   };
 
-  const { enqueueSnackbar } = useSnackbar();
-
   useEffect(() => {
-    if (Addresess.length === 0) {
-      enqueueSnackbar('You Did Not Added Any Address Yet', {
-        variant: 'success',
-        autoHideDuration: 3000,
-        anchorOrigin: { horizontal: 'left', vertical: 'top' },
-      });
+    if (userAddress.length === 0) {
+      toast.error('You Did Not Added Any Address Yet');
     }
-  }, [Addresess, enqueueSnackbar]);
+  }, []);
 
   function loadScript(src) {
     return new Promise((resolve) => {
@@ -100,18 +97,13 @@ function Delivery({ currentStape, setCurrentStape }) {
       return;
     }
 
-    // creating a new order
-    // const result = await axios.post(
-    //   'https://jsonplaceholder.typicode.com/posts',
-    // );
-
     if (!res) {
       alert('Server error. Are you online?');
       return;
     }
 
     const options = {
-      key: 'rzp_test_CLr42OejxtiorB', // Enter the Key ID generated from the Dashboard
+      key: 'rzp_test_CLr42OejxtiorB',
       currency: 'INR',
       amount: amount * 100,
       name: 'Water Mates',
@@ -138,10 +130,10 @@ function Delivery({ currentStape, setCurrentStape }) {
   }
 
   return (
-    <div>
+    <Box>
       <p style={{ marginLeft: '15%' }}> Delivery Details</p>
-      <div className="ContainerDelivery">
-        <div>
+      <Box className="ContainerDelivery">
+        <Box>
           <Card
             sx={{
               boxShadow: '0 3px 20px rgba(7,141,115,.16)',
@@ -151,7 +143,7 @@ function Delivery({ currentStape, setCurrentStape }) {
             }}
           >
             <CardContent>
-              <div>
+              <Box>
                 <Typography
                   sx={{ display: 'flex', justifyContent: 'space-between' }}
                   color="black"
@@ -243,7 +235,7 @@ function Delivery({ currentStape, setCurrentStape }) {
                               fontSize: '1.2rem',
                               cursor: 'pointer',
                             }}
-                            onClick={() => handleDeleteAddress(index)}
+                            onClick={() => handleDeleteAddress(address?.id)}
                           />
                           <EditOutlined
                             sx={{
@@ -258,8 +250,8 @@ function Delivery({ currentStape, setCurrentStape }) {
                       </CardContent>
                     </Card>
                   ))}
-              </div>
-              <div
+              </Box>
+              <Box
                 className="addresscontainer"
                 style={{
                   width: '100%',
@@ -267,11 +259,11 @@ function Delivery({ currentStape, setCurrentStape }) {
                   flexDirection: 'column',
                   justifyContent: 'center',
                 }}
-              ></div>
+              ></Box>
             </CardContent>
           </Card>
-        </div>
-        <div className="sideConatiner" style={{ maxWidth: '50vw' }}>
+        </Box>
+        <Box className="sideConatiner" style={{ maxWidth: '50vw' }}>
           <Card
             sx={{
               boxShadow: '0 3px 20px rgba(7,141,115,.16)',
@@ -287,28 +279,28 @@ function Delivery({ currentStape, setCurrentStape }) {
                 Price
               </Typography>
               <Divider />
-              <div style={{ display: 'flex', flexDirection: 'column' }}>
-                <div
+              <Box style={{ display: 'flex', flexDirection: 'column' }}>
+                <Box
                   style={{ display: 'flex', justifyContent: 'space-between' }}
                 >
                   <p>Price</p>
                   <h4>₹85/Per Can</h4>
-                </div>
-                <div
+                </Box>
+                <Box
                   style={{ display: 'flex', justifyContent: 'space-between' }}
                 >
                   <p>Delivery Charges</p>
                   <h4>₹ 0</h4>
-                </div>
+                </Box>
                 <div
                   style={{ display: 'flex', justifyContent: 'space-between' }}
                 >
                   <p>Refundable deposite</p>
                   <h4>₹30</h4>
                 </div>
-              </div>
+              </Box>
               <Divider />
-              <div
+              <Box
                 style={{
                   display: 'flex',
                   justifyContent: 'space-between',
@@ -317,7 +309,7 @@ function Delivery({ currentStape, setCurrentStape }) {
               >
                 <h3>Total</h3>
                 <h3>490</h3>
-              </div>
+              </Box>
             </CardContent>
             <CardActions
               sx={{ display: 'flex', justifyContent: 'space-between' }}
@@ -340,23 +332,18 @@ function Delivery({ currentStape, setCurrentStape }) {
                   color: '#fff',
                 }}
                 onClick={() => {
-                  if (Addresess.length) {
+                  if (userAddress?.length) {
                     displayRazorpay(500);
                   }
-                  enqueueSnackbar(' Please Add Address', {
-                    variant: 'error',
-                    autoHideDuration: 3000,
-                    anchorOrigin: { horizontal: 'left', vertical: 'top' },
-                  });
                 }}
               >
                 Pay Now
               </Button>
             </CardActions>
           </Card>
-        </div>
-      </div>
-    </div>
+        </Box>
+      </Box>
+    </Box>
   );
 }
 

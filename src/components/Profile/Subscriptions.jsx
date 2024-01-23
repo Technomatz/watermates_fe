@@ -1,33 +1,15 @@
 import React from 'react';
 import '../Cards/ProductCard.css';
 import { useSelector } from 'react-redux';
-// import { useDispatch } from 'react-redux'; // Import useDispatch to dispatch actions
-// import { toggleFavorite } from '../../redux/reducers/FavoriteReducer';
 import { Box, Grid, Typography } from '@mui/material';
-// import { Favorite } from '@mui/icons-material';
 import Sidebar from '../SideBar/Index';
 
 function Subscription() {
-  // const dispatch = useDispatch(); // Get the dispatch function
-
-  // const handleFavoriteClick = (id, imgUrl, title, description, price) => {
-  //   dispatch(
-  //     toggleFavorite({
-  //       id,
-  //       imgUrl,
-  //       title,
-  //       description,
-  //       price,
-  //     }),
-  //   );
-  // };
-
   const favorites = useSelector((state) => state.favorite);
 
   return (
-    <div style={{ display: 'flex', height: '100vh', overflowY: 'hidden' }}>
+    <Box sx={{ display: 'flex', height: '100vh', overflowY: 'hidden' }}>
       <Sidebar />
-
       <Box
         sx={{
           display: 'flex',
@@ -61,7 +43,7 @@ function Subscription() {
           )}
         </Grid>
       </Box>
-    </div>
+    </Box>
   );
 }
 

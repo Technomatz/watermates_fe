@@ -5,7 +5,6 @@ import {
   CardActions,
   CardContent,
   Container,
-  // Divider,
   IconButton,
   Typography,
 } from '@mui/material';
@@ -23,8 +22,8 @@ function OrderDetails() {
   const user = useSelector((state) => state.user.user);
 
   return (
-    <div
-      style={{
+    <Box
+      sx={{
         display: 'flex',
         overflowY: 'hidden',
         overflowX: 'hidden',
@@ -155,7 +154,7 @@ function OrderDetails() {
           </Container>
         </Card>
       </Box>
-    </div>
+    </Box>
   );
 }
 

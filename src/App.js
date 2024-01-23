@@ -1,11 +1,7 @@
-/** @format */
-
 import React from 'react';
-// import { useState } from 'react';
 import { Route, Routes } from 'react-router-dom';
 import './App.css';
 import PageNotFound from './components/PageNotFound';
-// import Footer from './components/Footer/Index';
 import NavBar from './components/Header/NavBar';
 import Login from './components/Login/Index';
 import SignUp from './components/SignUp/Index';

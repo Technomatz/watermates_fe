@@ -1,26 +1,17 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
-import { Divider } from '@mui/material';
+import { Box, Divider } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
 import { toggleCart } from '../../redux/reducers/CartReducer';
 
 function MainCart({ setCurrentStape }) {
-  const [isCatItem, setIsCartItem] = useState(false);
-  console.log(isCatItem);
-
   const cartItems = useSelector((state) => state.cart);
   const dispatch = useDispatch();
-  useEffect(() => {
-    if (Array.isArray(cartItems)) {
-      setIsCartItem(
-        cartItems.map((item) => item.id).includes(cartItems.length + 1),
-      );
-    }
-  }, [cartItems, cartItems.length]);
+
   const handleDeletCartItem = (id) => {
     dispatch(
       toggleCart({
@@ -32,13 +23,13 @@ function MainCart({ setCurrentStape }) {
     setCurrentStape(1);
   };
   return (
-    <div className="OuterCart">
-      <div className="innermain">
-        <div className="cardscontainer">
-          <div className="leftContainers">
-            <div className="descDiv">
-              <div className="priceTag">
-                <div>
+    <Box className="OuterCart">
+      <Box className="innermain">
+        <Box className="cardscontainer">
+          <Box className="leftContainers">
+            <Box className="descDiv">
+              <Box className="priceTag">
+                <Box>
                   {' '}
                   <span
                     style={{
@@ -56,12 +47,11 @@ function MainCart({ setCurrentStape }) {
                     </span>{' '}
                     item(s)
                   </span>
-                </div>
-                <div style={{ fontSize: '30px' }}>₹490</div>
-              </div>
+                </Box>
+                <Box style={{ fontSize: '30px' }}>₹490</Box>
+              </Box>
               {cartItems.length ? (
                 cartItems.map((elem, index) => {
-                  console.log(index, '////index');
                   return (
                     <>
                       <Card
@@ -74,7 +64,7 @@ function MainCart({ setCurrentStape }) {
                         }}
                       >
                         <CardContent>
-                          <div>
+                          <Box>
                             <Typography
                               sx={{
                                 display: 'flex',
@@ -103,7 +93,7 @@ function MainCart({ setCurrentStape }) {
                                 Delete
                               </Button>
                             </Typography>
-                          </div>
+                          </Box>
 
                           <Typography variant="p" component="div">
                             2 Per can
@@ -111,40 +101,40 @@ function MainCart({ setCurrentStape }) {
                           <br />
                           <Divider />
                           <br />
-                          <div
+                          <Box
                             style={{
                               display: 'flex',
                               justifyContent: 'space-between',
                             }}
                           >
-                            <div>
+                            <Box>
                               <p>Product price</p>
                               <h4>{elem?.price}</h4>
-                            </div>
-                            <div>
+                            </Box>
+                            <Box>
                               <p>Discount</p>
                               <h4>₹8</h4>
-                            </div>
-                            <div>
+                            </Box>
+                            <Box>
                               <p>Delivery Charges</p>
                               <h4>₹30</h4>
-                            </div>
-                          </div>
+                            </Box>
+                          </Box>
                           <br />
-                          <div
+                          <Box
                             style={{
                               display: 'flex',
                               justifyContent: 'space-between',
                             }}
                           >
-                            <div className=" quantityDiv w-32 mb-5 ">
+                            <Box className=" quantityDiv w-32 mb-5 ">
                               <label
                                 htmlFor=""
                                 className="w-full text-xl font-semibold text-gray-700 dark:text-gray-400"
                               >
                                 Quantity
                               </label>
-                              <div className="relative flex flex-row w-full h-10 mt-4 bg-transparent rounded-lg">
+                              <Box className="relative flex flex-row w-full h-10 mt-4 bg-transparent rounded-lg">
                                 <button className="w-20 h-full text-gray-600 bg-gray-300 rounded-l outline-none cursor-pointer dark:hover:bg-gray-700 dark:text-gray-400 hover:text-gray-700 dark:bg-gray-900 hover:bg-gray-400">
                                   <span className="m-auto text-2xl font-thin">
                                     -
@@ -160,24 +150,24 @@ function MainCart({ setCurrentStape }) {
                                     +
                                   </span>
                                 </button>
-                              </div>
-                            </div>
-                            <div>
+                              </Box>
+                            </Box>
+                            <Box>
                               <p>Total Product Prise</p>
                               <h4>{elem?.price}</h4>
-                            </div>
-                          </div>
-                          <div className="checkboxContainer">
+                            </Box>
+                          </Box>
+                          <Box className="checkboxContainer">
                             <input
                               type="checkbox"
                               style={{
                                 marginBottom: '4.5rem',
                               }}
                             />
-                            <div>
+                            <Box>
                               <p>{elem.discription}</p>
-                            </div>
-                          </div>
+                            </Box>
+                          </Box>
                         </CardContent>
                       </Card>
                     </>
@@ -186,9 +176,9 @@ function MainCart({ setCurrentStape }) {
               ) : (
                 <h2>No Item Added in Cart</h2>
               )}
-            </div>
+            </Box>
             <br />
-            <div className="buttomcontainer">
+            <Box className="buttomcontainer">
               {' '}
               <Card
                 sx={{
@@ -209,7 +199,7 @@ function MainCart({ setCurrentStape }) {
                     quantity below
                   </Typography>
 
-                  <div
+                  <Box
                     className="w-32 mb-8"
                     style={{
                       display: 'flex',
@@ -224,7 +214,7 @@ function MainCart({ setCurrentStape }) {
                     >
                       Quantity
                     </label>
-                    <div
+                    <Box
                       className="relative flex flex-row w-full h-10 mt-4 bg-transparent rounded-lg"
                       style={{ marginLeft: '5rem' }}
                     >
@@ -239,13 +229,13 @@ function MainCart({ setCurrentStape }) {
                       <button className="w-20 h-full text-gray-600 bg-gray-300 rounded-r outline-none cursor-pointer dark:hover:bg-gray-700 dark:text-gray-400 dark:bg-gray-900 hover:text-gray-700 hover:bg-gray-400">
                         <span className="m-auto text-2xl font-thin">+</span>
                       </button>
-                    </div>
-                  </div>
+                    </Box>
+                  </Box>
                 </CardContent>
               </Card>
-            </div>
-          </div>
-          <div
+            </Box>
+          </Box>
+          <Box
             className="sideConatiner"
             style={{ maxWidth: '50vw', marginTop: '54px' }}
           >
@@ -264,37 +254,37 @@ function MainCart({ setCurrentStape }) {
                 </Typography>
                 <Divider />
 
-                <div
+                <Box
                   style={{
                     display: 'flex',
                     flexDirection: 'column',
                     gap: '10px',
                   }}
                 >
-                  <div
+                  <Box
                     style={{ display: 'flex', justifyContent: 'space-between' }}
                   >
                     <p>Price</p>
                     <h4>₹85/Per Can</h4>
-                  </div>
+                  </Box>
 
-                  <div
+                  <Box
                     style={{ display: 'flex', justifyContent: 'space-between' }}
                   >
                     <p>Delivery Charges</p>
                     <h4>₹ 0</h4>
-                  </div>
-                  <div
+                  </Box>
+                  <Box
                     style={{ display: 'flex', justifyContent: 'space-between' }}
                   >
                     <p>Refundable deposite</p>
                     <h4>₹30</h4>
-                  </div>
-                </div>
+                  </Box>
+                </Box>
 
                 <Divider />
 
-                <div
+                <Box
                   style={{
                     display: 'flex',
                     justifyContent: 'space-between',
@@ -303,7 +293,7 @@ function MainCart({ setCurrentStape }) {
                 >
                   <h3>Total</h3>
                   <h3>490</h3>
-                </div>
+                </Box>
               </CardContent>
               <CardActions>
                 <Button
@@ -318,10 +308,10 @@ function MainCart({ setCurrentStape }) {
                 </Button>
               </CardActions>
             </Card>
-          </div>
-        </div>
-      </div>
-    </div>
+          </Box>
+        </Box>
+      </Box>
+    </Box>
   );
 }
 

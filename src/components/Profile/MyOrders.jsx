@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom';
 
 function MyOrders() {
   return (
-    <div
+    <Box
       style={{
         display: 'flex',
         gap: '10px',
@@ -80,7 +80,7 @@ function MyOrders() {
           );
         })}
       </Box>
-    </div>
+    </Box>
   );
 }
 

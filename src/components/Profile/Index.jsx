@@ -1,5 +1,4 @@
 import React from 'react';
-// import Sidebar from '../SideBar/Index';
 import { Box } from '@mui/material';
 import MyAccount from './Myaccount';
 import './Profile.css';
@@ -9,7 +8,7 @@ import ProfileLayout from '../../layouts/ProfileLayout';
 function MyProfile() {
   return (
     <ProfileLayout>
-      <div style={{ display: 'flex' }}>
+      <Box style={{ display: 'flex' }}>
         <Box
           sx={{
             display: 'flex',
@@ -20,7 +19,7 @@ function MyProfile() {
           <MyAccount />
           <MyAddresses />
         </Box>
-      </div>
+      </Box>
     </ProfileLayout>
   );
 }

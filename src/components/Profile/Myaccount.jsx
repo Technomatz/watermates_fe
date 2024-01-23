@@ -18,7 +18,6 @@ const MyAccount = () => {
     birthday: '',
   });
   const user = useSelector((state) => state.user.user);
-  console.log(formData);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -26,11 +25,11 @@ const MyAccount = () => {
       ...prevData,
       [name]: value,
     }));
+    console.log(formData);
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Add your form submission logic here
   };
 
   return (

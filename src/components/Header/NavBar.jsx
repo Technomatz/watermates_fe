@@ -7,9 +7,7 @@ import Typography from '@mui/material/Typography';
 import Menu from '@mui/material/Menu';
 import MenuIcon from '@mui/icons-material/Menu';
 import Container from '@mui/material/Container';
-// import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
-// import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import AdbIcon from '@mui/icons-material/Adb';
 import SearchIcon from '@mui/icons-material/Search';
@@ -21,28 +19,20 @@ import { Badge } from '@mui/material';
 import { useSelector } from 'react-redux';
 
 const pages = ['Products', 'Pricing', 'Blog'];
-// const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
 
 function ResponsiveAppBar() {
   const [anchorElNav, setAnchorElNav] = React.useState();
-  // const [anchorElUser, setAnchorElUser] = React.useState();
 
   const navigate = useNavigate();
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
   };
-  // const handleOpenUserMenu = (event) => {
-  //   setAnchorElUser(event.currentTarget);
-  // };
 
   const handleCloseNavMenu = () => {
     setAnchorElNav(null);
   };
 
-  // const handleCloseUserMenu = () => {
-  //   setAnchorElUser(null);
-  // };
   const CartItems = useSelector((state) => state.cart);
 
   return (
@@ -83,33 +73,7 @@ function ResponsiveAppBar() {
             >
               <MenuIcon />
             </IconButton>
-            {/* <Menu
-              id="menu-appbar"
-              anchorEl={anchorElNav}
-              anchorOrigin={{
-                vertical: 'bottom',
-                horizontal: 'left',
-              }}
-              keepMounted
-              transformOrigin={{
-                vertical: 'top',
-                horizontal: 'left',
-              }}
-              open={Boolean(anchorElNav)}
-              onClose={handleCloseNavMenu}
-              sx={{
-                display: { xs: 'block', md: 'none' },
-              }}
-            >
-              {pages.map((page) => (
-                <MenuItem
-                  key={page}
-                  onClick={(page) => handleCloseNavMenu(page)}
-                >
-                  <Typography textAlign="center">{page}</Typography>
-                </MenuItem>
-              ))}
-            </Menu> */}
+
             <Menu
               id="menu-appbar"
               anchorEl={anchorElNav}
@@ -155,17 +119,7 @@ function ResponsiveAppBar() {
             Water
             <span style={{ color: 'red' }}> Mates</span>
           </Typography>
-          {/* <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
-            {pages.map((page) => (
-              <Button
-                key={page}
-                onClick={(page) => handleCloseNavMenu(page)}
-                sx={{ my: 2, color: 'grey', display: 'block' }}
-              >
-                {page}
-              </Button>
-            ))}
-          </Box> */}
+
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
             {pages.map((page) => (
               <Button
@@ -174,8 +128,6 @@ function ResponsiveAppBar() {
                   handleCloseNavMenu();
                   if (page === 'Products') {
                     navigate('/products');
-                  } else {
-                    // Add other navigation logic for different pages if needed
                   }
                 }}
                 sx={{ my: 2, color: 'grey', display: 'block' }}

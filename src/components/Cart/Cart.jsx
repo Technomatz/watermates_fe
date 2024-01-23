@@ -3,12 +3,12 @@ import CartStepper from './Index';
 import MainCart from './MainCart';
 import './Cart.css';
 import Delivery from './Delivery';
-import { Divider } from '@mui/material';
+import { Box, Divider } from '@mui/material';
 function Cart() {
   const [currentStape, setCurrentStape] = useState(0);
 
   return (
-    <div
+    <Box
       style={{
         background: 'linear-gradient(90deg,#eefbff 0,#f6fcff)',
         margin: 0,
@@ -28,7 +28,7 @@ function Cart() {
         />
       )}
       <Divider sx={{ position: 'absolute', bottom: '10px' }} />
-    </div>
+    </Box>
   );
 }
 

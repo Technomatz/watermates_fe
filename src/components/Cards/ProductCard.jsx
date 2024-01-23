@@ -6,12 +6,12 @@ import { Favorite } from '@mui/icons-material';
 import { toast } from 'react-toastify';
 import { Link } from 'react-router-dom';
 import { toggleCart } from '../../redux/reducers/CartReducer';
+import { Box } from '@mui/material';
 
 function ProductCard({ imgUrl, title, discription, price, id, isFavorite }) {
   const [localIsFavorite, setLocalIsFavorite] = useState(false);
   const [isCatItem, setIsCartItem] = useState(false);
   const [animateFavorite, setAnimateFavorite] = useState(false);
-
   const dispatch = useDispatch();
   const state = useSelector((state) => state.favorite);
   useEffect(() => {
@@ -63,7 +63,7 @@ function ProductCard({ imgUrl, title, discription, price, id, isFavorite }) {
       });
     }
     setTimeout(() => {
-      setAnimateFavorite(false); // Reset the animation state after a delay
+      setAnimateFavorite(false);
     }, 1000);
   };
 
@@ -100,21 +100,24 @@ function ProductCard({ imgUrl, title, discription, price, id, isFavorite }) {
   return (
     <Link to={`/product/${id}`} style={{ textDecoration: 'none' }}>
       <section className="card">
-        <div className="product-image">
+        <Box className="product-image">
           <img
             src={imgUrl}
             alt="OFF-white Red Edition"
             className="productImg"
             draggable="false"
           />
-        </div>
-        <div className="product-info">
+        </Box>
+        <Box className="product-info">
           <h2>{title}</h2>
           <p>{discription}</p>
-          <div className="price">${price}</div>
-        </div>
-        <div className="btn">
-          <button className="buy-btn" onClick={(e) => handleAddToCartClick(e)}>
+          <Box className="price">${price}</Box>
+        </Box>
+        <Box className="btn">
+          <button
+            className={`buy-btn ${isCatItem ? 'in-cart' : ''}`}
+            onClick={(e) => handleAddToCartClick(e)}
+          >
             {isCatItem ? 'Remove From Cart' : 'Add To Cart'}
           </button>
           <button
@@ -133,7 +136,7 @@ function ProductCard({ imgUrl, title, discription, price, id, isFavorite }) {
               }}
             />
           </button>
-        </div>
+        </Box>
       </section>
     </Link>
   );

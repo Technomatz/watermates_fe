@@ -11,11 +11,23 @@ const userSlice = createSlice({
       state.user = [...state.user, action.payload];
     },
     updateUserAddress: (state, action) => {
-      state.user = [...state.user, ...action.payload];
+      const { id, updatedAddress } = action.payload;
+      const existingIndex = state.user.findIndex((user) => user.id === id);
+
+      if (existingIndex !== -1) {
+        state.user[existingIndex] = {
+          ...state.user[existingIndex],
+          ...updatedAddress,
+        };
+      }
     },
-    clearUserAddress: (state) => {
-      state.isLoggedIn = false;
-      state.user = null;
+    clearUserAddress: (state, action) => {
+      const existingIndex = state.user.findIndex(
+        (user) => user.id === action.payload.id,
+      );
+      if (existingIndex !== -1) {
+        state.user.splice(existingIndex, 1);
+      }
     },
   },
 });

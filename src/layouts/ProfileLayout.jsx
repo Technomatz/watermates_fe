@@ -1,9 +1,10 @@
 import React from 'react';
 import Sidebar from '../components/SideBar/Index';
+import { Box } from '@mui/material';
 
 function ProfileLayout({ children }) {
   return (
-    <div
+    <Box
       style={{
         display: 'flex',
         overflowY: 'hidden',
@@ -12,7 +13,7 @@ function ProfileLayout({ children }) {
     >
       <Sidebar />
       {children}
-    </div>
+    </Box>
   );
 }
 

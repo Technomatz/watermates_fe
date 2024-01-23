@@ -8,6 +8,11 @@
   margin-left: 8% !important;
 }
 
+.buy-btn.in-cart {
+  background: white;
+  color: black;
+}
+
 .FavIcon {
   color: #ff0000 !important;
   height: 30px !important;
@@ -16,7 +21,6 @@
 
 .svg.filled {
   fill: #ff0000;
-  /* Set your desired filled color */
 }
 
 .card::before,
@@ -91,10 +95,6 @@
   text-transform: capitalize;
 }
 
-/* .card:hover .product-image {
-  transform: translate(-1.5rem, -7rem) rotate(-20deg);
-} */
-
 .product-info h2 {
   font-size: 1.4rem;
   font-weight: 600;
@@ -126,15 +126,9 @@
   transition: 300ms ease;
 }
 
-.buy-btn:hover {
-  background-color: var(--btn-hover);
-}
-
 .fav {
   box-sizing: border-box;
-  /* background: #fff; */
   padding: 0.5rem 0.5rem;
-  /* border: 1px solid#000; */
   display: grid;
   place-items: center;
 }

@@ -1,7 +1,7 @@
 import React from 'react';
 import '../Cards/ProductCard.css';
 import { useSelector } from 'react-redux';
-import { useDispatch } from 'react-redux'; // Import useDispatch to dispatch actions
+import { useDispatch } from 'react-redux';
 import { toggleFavorite } from '../../redux/reducers/FavoriteReducer';
 import { Box, Grid, Typography } from '@mui/material';
 import { Favorite } from '@mui/icons-material';
@@ -9,7 +9,7 @@ import Sidebar from '../SideBar/Index';
 import { Link } from 'react-router-dom';
 
 function Favorites() {
-  const dispatch = useDispatch(); // Get the dispatch function
+  const dispatch = useDispatch();
 
   const handleFavoriteClick = (id, imgUrl, title, description, price) => {
     dispatch(
@@ -26,9 +26,8 @@ function Favorites() {
   const favorites = useSelector((state) => state.favorite);
 
   return (
-    <div style={{ display: 'flex', height: '100vh', overflowY: 'hidden' }}>
+    <Box style={{ display: 'flex', height: '100vh', overflowY: 'hidden' }}>
       <Sidebar />
-
       <Box
         sx={{
           display: 'flex',
@@ -75,20 +74,20 @@ function Favorites() {
                     style={{ textDecoration: 'none' }}
                   >
                     <section className="card" key={fav.id}>
-                      <div className="product-image">
+                      <Box className="product-image">
                         <img
                           src={fav.imgUrl}
                           alt="OFF-white Red Edition"
                           className="productImg"
                           draggable="false"
                         />
-                      </div>
-                      <div className="product-info">
+                      </Box>
+                      <Box className="product-info">
                         <h2>{fav.title}</h2>
                         <p>{fav.description}</p>
                         <div className="price">${fav.price}</div>
-                      </div>
-                      <div className="btn">
+                      </Box>
+                      <Box className="btn">
                         <button className="buy-btn">Buy Now</button>
                         <button
                           className="fav"
@@ -104,7 +103,7 @@ function Favorites() {
                         >
                           <Favorite className="FavIcon" />
                         </button>
-                      </div>
+                      </Box>
                     </section>
                   </Link>
                 </Grid>
@@ -113,7 +112,7 @@ function Favorites() {
           )}
         </Grid>
       </Box>
-    </div>
+    </Box>
   );
 }
 

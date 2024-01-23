@@ -7,12 +7,9 @@ import {
   EditOutlined,
   RoofingOutlined,
 } from '@mui/icons-material';
-
 import '../Cart/Cart.css';
 import AddressPopup from '../Cart/AddressPopup';
 import { useSelector } from 'react-redux';
-// import AddressPopup from './AddressPopup';
-
 function Delivery() {
   const [isModalOpen, setModalOpen] = useState(false);
   const [Addresess, setAddresess] = useState([]);
@@ -21,13 +18,11 @@ function Delivery() {
   const userAddress = useSelector((state) => state.user.user);
   const handleSubmitForm = (data) => {
     if (selectedAddressIndex !== null) {
-      // Edit existing address
       const updatedAddresses = [...Addresess];
       updatedAddresses[selectedAddressIndex] = data;
       setAddresess(updatedAddresses);
       setSelectedAddressIndex(null);
     } else {
-      // Add a new address
       setAddresess([...Addresess, data]);
       setDefaultAddressIndex(Addresess.length);
     }
@@ -36,7 +31,7 @@ function Delivery() {
 
   const handleAddressOpen = () => {
     setModalOpen(!isModalOpen);
-    setSelectedAddressIndex(null); // Reset the selected address index when opening the modal
+    setSelectedAddressIndex(null);
   };
 
   const handleDeleteAddress = (index) => {
@@ -53,10 +48,6 @@ function Delivery() {
     setModalOpen(true);
   };
 
-  // const handleBack = () => {
-  //   setCurrentStape(currentStape - 1);
-  // };
-
   const { enqueueSnackbar } = useSnackbar();
 
   useEffect(() => {
@@ -69,70 +60,9 @@ function Delivery() {
     }
   }, [Addresess, enqueueSnackbar]);
 
-  // function loadScript(src) {
-  //   return new Promise((resolve) => {
-  //     const script = document.createElement('script');
-  //     script.src = src;
-  //     script.onload = () => {
-  //       resolve(true);
-  //     };
-  //     script.onerror = () => {
-  //       resolve(false);
-  //     };
-  //     document.body.appendChild(script);
-  //   });
-  // }
-  // async function displayRazorpay(amount) {
-  //   const res = await loadScript(
-  //     'https://checkout.razorpay.com/v1/checkout.js',
-  //   );
-
-  //   if (!res) {
-  //     alert('Razorpay SDK failed to load. Are you online?');
-  //     return;
-  //   }
-
-  //   // creating a new order
-  //   // const result = await axios.post(
-  //   //   'https://jsonplaceholder.typicode.com/posts',
-  //   // );
-
-  //   if (!res) {
-  //     alert('Server error. Are you online?');
-  //     return;
-  //   }
-
-  //   const options = {
-  //     key: 'rzp_test_CLr42OejxtiorB', // Enter the Key ID generated from the Dashboard
-  //     currency: 'INR',
-  //     amount: amount * 100,
-  //     name: 'Water Mates',
-  //     description: 'Thanks for purchasing',
-  //     handler: async function (response) {
-  //       console.log(response, '//////////////response');
-  //       alert(response.razorpay_payment_id);
-  //       alert('Payment successful');
-  //     },
-  //     prefill: {
-  //       name: 'Water Mates',
-  //       email: 'Watermates@example.com',
-  //       contact: '8435943098',
-  //     },
-  //     notes: {
-  //       address: 'PU 4 Sch. 54 Indore ',
-  //     },
-  //     theme: {
-  //       color: '#61dafb',
-  //     },
-  //   };
-
-  //   const paymentObject = new window.Razorpay(options);
-  //   paymentObject.open();
-  // }
-
   return (
-    <div>
-      <div>
+    <Box>
+      <Box>
         <Card
           sx={{
             boxShadow: '0 3px 20px rgba(7,141,115,.16)',
@@ -149,7 +79,7 @@ function Delivery() {
             Addresses{' '}
           </Box>
           <CardContent>
-            <div>
+            <Box>
               <Typography
                 sx={{ display: 'flex', justifyContent: 'space-between' }}
                 color="black"
@@ -177,7 +107,7 @@ function Delivery() {
                   />
                 )}
               </Typography>
-              <div className="scrollable-container">
+              <Box className="scrollable-container">
                 {userAddress &&
                   userAddress?.map((address, index) => (
                     <Card
@@ -247,9 +177,9 @@ function Delivery() {
                       </CardContent>
                     </Card>
                   ))}
-              </div>
-            </div>
-            <div
+              </Box>
+            </Box>
+            <Box
               className="addresscontainer"
               style={{
                 width: '100%',
@@ -257,95 +187,11 @@ function Delivery() {
                 flexDirection: 'column',
                 justifyContent: 'center',
               }}
-            ></div>
+            ></Box>
           </CardContent>
         </Card>
-      </div>
-      {/* <div className="sideConatiner" style={{ maxWidth: '50vw' }}>
-          <Card
-            sx={{
-              boxShadow: '0 3px 20px rgba(7,141,115,.16)',
-              padding: '20px',
-              borderRadius: '10px',
-              backgroundColor: '#c0edfa',
-              width: '20vw',
-            }}
-          >
-            <CardContent>
-              {' '}
-              <Typography sx={{ fontSize: 24 }} color="black" gutterBottom>
-                Price
-              </Typography>
-              <Divider />
-              <div style={{ display: 'flex', flexDirection: 'column' }}>
-                <div
-                  style={{ display: 'flex', justifyContent: 'space-between' }}
-                >
-                  <p>Price</p>
-                  <h4>₹85/Per Can</h4>
-                </div>
-                <div
-                  style={{ display: 'flex', justifyContent: 'space-between' }}
-                >
-                  <p>Delivery Charges</p>
-                  <h4>₹ 0</h4>
-                </div>
-                <div
-                  style={{ display: 'flex', justifyContent: 'space-between' }}
-                >
-                  <p>Refundable deposite</p>
-                  <h4>₹30</h4>
-                </div>
-              </div>
-              <Divider />
-              <div
-                style={{
-                  display: 'flex',
-                  justifyContent: 'space-between',
-                  marginTop: '10px',
-                }}
-              >
-                <h3>Total</h3>
-                <h3>490</h3>
-              </div>
-            </CardContent>
-            <CardActions
-              sx={{ display: 'flex', justifyContent: 'space-between' }}
-            >
-              <Button
-                style={{
-                  background: '#00b2a2',
-                  border: '1px solid transparent;',
-                  color: '#fff',
-                }}
-                onClick={handleBack}
-              >
-                <ChevronLeft />
-                Back
-              </Button>
-              <Button
-                style={{
-                  background: '#00b2a2',
-                  border: '1px solid transparent;',
-                  color: '#fff',
-                }}
-                onClick={() => {
-                  if (Addresess.length) {
-                    displayRazorpay(500);
-                  }
-                  enqueueSnackbar(' Please Add Address', {
-                    variant: 'error',
-                    autoHideDuration: 3000,
-                    anchorOrigin: { horizontal: 'left', vertical: 'top' },
-                  });
-                }}
-              >
-                Pay Now
-              </Button>
-            </CardActions>
-          </Card>
-        </div> */}
-    </div>
+      </Box>
+    </Box>
   );
 }
 
