@@ -3,6 +3,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { toggleFavorite } from '../../redux/reducers/FavoriteReducer';
 import { Box } from '@mui/material';
+import { toast } from 'react-toastify';
 function ProductDescription() {
   const [localIsFavorite, setLocalIsFavorite] = useState([]);
 
@@ -24,7 +25,18 @@ function ProductDescription() {
 
   const handleFavoriteClick = () => {
     dispatch(toggleFavorite({ id: parseInt(id) }));
+    toast.success(' Item Added To Wishlist!', {
+      position: 'bottom-center',
+      autoClose: 1000,
+      hideProgressBar: true,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: 'dark',
+    });
   };
+
   const removeFromWishlistClassName = localIsFavorite
     ? 'bg-red-500'
     : 'bg-blue-500';
@@ -243,7 +255,7 @@ function ProductDescription() {
                     className="flex items-center justify-center w-full p-4 text-blue-500 border border-blue-500 rounded-md dark:text-gray-200 dark:border-blue-600 hover:bg-blue-600 hover:border-blue-600 hover:text-gray-100 dark:bg-blue-600 dark:hover:bg-blue-700 dark:hover:border-blue-700 dark:hover:text-gray-300"
                     onClick={handleClick}
                   >
-                    Add to cart
+                    Buy Now
                   </button>
                 </Box>
                 <Box className="w-full px-4 mb-4 lg:mb-0 lg:w-1/2">

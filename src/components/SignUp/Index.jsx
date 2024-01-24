@@ -16,6 +16,8 @@ import * as Yup from 'yup';
 import { useFormik } from 'formik';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { useDispatch } from 'react-redux';
+import { login } from '../../redux/reducers/authreducer';
 
 const SignupSchema = Yup.object().shape({
   full_name: Yup.string()
@@ -31,6 +33,7 @@ const SignupSchema = Yup.object().shape({
 
 export default function SignUp() {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const formik = useFormik({
     initialValues: {
@@ -51,7 +54,10 @@ export default function SignUp() {
       };
       post('/users/sign_up', finalData)
         .then((res) => {
-          localStorage.setItem('token', res.data.token);
+          localStorage.setItem('token', res?.data?.token);
+          localStorage.setItem('user', JSON.stringify(res?.data?.user));
+          dispatch(login(res.data.user));
+
           toast.success('Success Notification !', {
             position: toast.POSITION.TOP_RIGHT,
           });
@@ -68,7 +74,7 @@ export default function SignUp() {
   });
 
   return (
-    <Grid container component="main" sx={{ height: '100vh' }}>
+    <Grid container component="main" sx={{ height: '96vh', marginTop: '2rem' }}>
       <ToastContainer />
       <CssBaseline />
       <Grid

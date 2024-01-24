@@ -8,11 +8,9 @@ import {
 } from '@mui/icons-material';
 import { Divider } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
-
 const Sidebar = () => {
   const [selectedImage, setSelectedImage] = useState(null);
   const fileInputRef = useRef(null);
-
   const handleIconClick = () => {
     fileInputRef.current.click();
   };

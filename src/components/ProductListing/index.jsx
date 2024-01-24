@@ -1,89 +1,56 @@
 import { Box, Grid } from '@mui/material';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import ProductCard from '../Cards/ProductCard';
-import { useSelector } from 'react-redux';
-
-const data = [
-  {
-    id: 1,
-    name: 'dev',
-    url: 'https://media.istockphoto.com/id/178035079/photo/three-blue-water-cooler-bottles-isolated-on-white.jpg?s=612x612&w=0&k=20&c=oJnhg6E5rRxV8W-VLHg3ehyQNDMZlYwx3ia1l2d_Mx8=',
-    title: 'Bisleri Rockstar 300ml',
-    discription: 'lorem djhwdjdvw wdjqwhdvqwjdhvq dwdhqwvdqwjd',
-    price: '198',
-  },
-  {
-    id: 2,
-    name: 'dev',
-    url: 'https://media.istockphoto.com/id/178035079/photo/three-blue-water-cooler-bottles-isolated-on-white.jpg?s=612x612&w=0&k=20&c=oJnhg6E5rRxV8W-VLHg3ehyQNDMZlYwx3ia1l2d_Mx8=',
-    title: 'this is your title',
-    discription: 'lorem djhwdjdvw wdjqwhdvqwjdhvq dwdhqwvdqwjd',
-    price: '198',
-  },
-  {
-    id: 3,
-    name: 'dev',
-    url: 'https://media.istockphoto.com/id/178035079/photo/three-blue-water-cooler-bottles-isolated-on-white.jpg?s=612x612&w=0&k=20&c=oJnhg6E5rRxV8W-VLHg3ehyQNDMZlYwx3ia1l2d_Mx8=',
-    title: 'this is your title',
-    discription: 'lorem djhwdjdvw wdjqwhdvqwjdhvq dwdhqwvdqwjd',
-    price: '198',
-  },
-  {
-    id: 4,
-    name: 'dev',
-    url: 'https://media.istockphoto.com/id/178035079/photo/three-blue-water-cooler-bottles-isolated-on-white.jpg?s=612x612&w=0&k=20&c=oJnhg6E5rRxV8W-VLHg3ehyQNDMZlYwx3ia1l2d_Mx8=',
-    title: 'this is your title',
-    discription: 'lorem djhwdjdvw wdjqwhdvqwjdhvq dwdhqwvdqwjd',
-    price: '198',
-  },
-  {
-    id: 5,
-    name: 'dev',
-    url: 'https://media.istockphoto.com/id/178035079/photo/three-blue-water-cooler-bottles-isolated-on-white.jpg?s=612x612&w=0&k=20&c=oJnhg6E5rRxV8W-VLHg3ehyQNDMZlYwx3ia1l2d_Mx8=',
-    title: 'this is your title',
-    discription: 'lorem djhwdjdvw wdjqwhdvqwjdhvq dwdhqwvdqwjd',
-    price: '198',
-  },
-  {
-    id: 6,
-    name: 'dev',
-    url: 'https://media.istockphoto.com/id/178035079/photo/three-blue-water-cooler-bottles-isolated-on-white.jpg?s=612x612&w=0&k=20&c=oJnhg6E5rRxV8W-VLHg3ehyQNDMZlYwx3ia1l2d_Mx8=',
-    title: 'this is your title',
-    discription: 'lorem djhwdjdvw wdjqwhdvqwjdhvq dwdhqwvdqwjd',
-    price: '198',
-  },
-  {
-    id: 7,
-    name: 'dev',
-    url: 'https://media.istockphoto.com/id/178035079/photo/three-blue-water-cooler-bottles-isolated-on-white.jpg?s=612x612&w=0&k=20&c=oJnhg6E5rRxV8W-VLHg3ehyQNDMZlYwx3ia1l2d_Mx8=',
-    title: 'this is your title',
-    discription: 'lorem djhwdjdvw wdjqwhdvqwjdhvq dwdhqwvdqwjd',
-    price: '198',
-  },
-  {
-    id: 8,
-    name: 'dev',
-    url: 'https://media.istockphoto.com/id/178035079/photo/three-blue-water-cooler-bottles-isolated-on-white.jpg?s=612x612&w=0&k=20&c=oJnhg6E5rRxV8W-VLHg3ehyQNDMZlYwx3ia1l2d_Mx8=',
-    title: 'this is your title',
-    discription: 'lorem djhwdjdvw wdjqwhdvqwjdhvq dwdhqwvdqwjd',
-    price: '198',
-  },
-  {
-    id: 9,
-    name: 'dev',
-    url: 'https://media.istockphoto.com/id/178035079/photo/three-blue-water-cooler-bottles-isolated-on-white.jpg?s=612x612&w=0&k=20&c=oJnhg6E5rRxV8W-VLHg3ehyQNDMZlYwx3ia1l2d_Mx8=',
-    title: 'this is your title',
-    discription: 'lorem djhwdjdvw wdjqwhdvqwjdhvq dwdhqwvdqwjd',
-    price: '198',
-  },
-];
+import { useDispatch, useSelector } from 'react-redux';
+import { get } from '../../utils/api';
+import {
+  setError,
+  setLoading,
+  setProducts,
+} from '../../redux/reducers/ProductsReducers';
+import { productsResponse } from '../../constants';
 
 function ProductListingPAge() {
   const [isFavorited, setIsFavorited] = useState(false);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    const fetchData = async () => {
+      dispatch(setLoading());
+
+      try {
+        let response = await get('/products').then((response) =>
+          response.json(),
+        );
+
+        console.log(response, '////response');
+        console.log(response?.data, '////responsedata');
+
+        dispatch(setProducts(response.data));
+      } catch (error) {
+        console.log(error);
+        dispatch(setError(error.message));
+      }
+    };
+
+    fetchData();
+  }, [dispatch]);
+
+  // useEffect(() => {
+  //   const fetchData = async () => {
+  //     const Products = await get('/products').then((response) => response.data);
+  //     if (!products) {
+  //       setProducts(productsResponse);
+  //     } else {
+  //       setProducts(Products);
+  //     }
+  //   };
+  //   fetchData();
+  // }, []);
 
   const isFavorite = useSelector((state) => state.favorite);
   return (
-    <Box sx={{ flexGrow: 1, padding: '5%', marginTop: '1rem' }}>
+    <Box sx={{ flexGrow: 1, padding: '5%', marginTop: '3rem' }}>
       <Grid container spacing={1}>
         <Grid
           container
@@ -91,14 +58,14 @@ function ProductListingPAge() {
           spacing={4}
           sx={{ display: 'flex', flexDirection: 'row' }}
         >
-          {data.map((data, index) => {
+          {productsResponse.map((data, index) => {
             return (
               <Grid item xs={12} sm={6} lg={4} xl={3} key={index}>
                 <ProductCard
                   id={data.id}
-                  imgUrl={data.url}
-                  title={data.title}
-                  discription={data.discription}
+                  imgUrl={data.img}
+                  title={data.name}
+                  discription={data.description}
                   price={data.price}
                   isFavorite={isFavorite}
                   isFavorited={isFavorited}

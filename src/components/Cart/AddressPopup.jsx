@@ -15,7 +15,7 @@ import { enqueueSnackbar } from 'notistack';
 import {
   createUserAddress,
   updateUserAddress,
-} from '../../redux/reducers/userReducer';
+} from '../../redux/reducers/UserAddress';
 export default function AddressPopup({
   isModalOpen,
   setModalOpen,

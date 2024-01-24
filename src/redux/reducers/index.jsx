@@ -1,12 +1,12 @@
 import { combineReducers } from '@reduxjs/toolkit';
 import authreducer from './authreducer';
-import userReducer from './userReducer';
 import FavoriteReducer from './FavoriteReducer';
 import CartReducer from './CartReducer';
+import UserAddress from './UserAddress';
 
 const rootReducer = combineReducers({
   auth: authreducer,
-  user: userReducer,
+  user: UserAddress,
   favorite: FavoriteReducer,
   cart: CartReducer,
 });
