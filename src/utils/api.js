@@ -1,71 +1,40 @@
-/** @format */
-
-// api.js
 import axios from 'axios';
 
 const instance = axios.create({
-  baseURL: 'https://c001-122-175-154-220.ngrok-free.app/api/v1', // Replace with your API base URL
-  timeout: 5000, // Adjust timeout as needed
+  baseURL: 'http://localhost:4000/api/v1',
+  timeout: 5000,
 });
 
-export const get = (url, config = {}) => instance.get(url, config);
+const getAuthToken = () => {
+  return localStorage.getItem('token');
+};
+
+export const get = (url, config = {}) =>
+  instance.get(url, {
+    ...config,
+    headers: { Authorization: `Bearer ${getAuthToken()}` },
+  });
 export const post = (url, data, config = {}) =>
-  instance.post(url, data, config);
-export const put = (url, data, config = {}) => instance.put(url, data, config);
-export const del = (url, config = {}) => instance.delete(url, config);
+  instance.post(url, data, {
+    ...config,
+    headers: { Authorization: `Bearer ${getAuthToken()}` },
+  });
+export const put = (url, data, config = {}) =>
+  instance.put(url, data, {
+    ...config,
+    headers: { Authorization: `Bearer ${getAuthToken()}` },
+  });
+export const del = (url, config = {}) =>
+  instance.delete(url, {
+    ...config,
+    headers: { Authorization: `Bearer ${getAuthToken()}` },
+  });
 
-// You can add more custom methods or configurations as needed
 export const customRequest = (method, url, data, config = {}) =>
-  instance.request({ method, url, data, ...config });
-
-// How you can use these methods inside your components
-
-// import { get, post, put, del, customRequest } from './api'; // Adjust the path accordingly
-
-//     // Example GET request
-//     get('/data')
-//       .then(response => {
-//         console.log(response.data);
-//       })
-//       .catch(error => {
-//         console.error('Error:', error);
-//       });
-
-//     // Example POST request
-//     const postData = { key: 'value' };
-//     post('/create', postData)
-//       .then(response => {
-//         console.log(response.data);
-//       })
-//       .catch(error => {
-//         console.error('Error:', error);
-//       });
-
-//     // Example PUT request
-//     const putData = { updatedKey: 'updatedValue' };
-//     put('/update/123', putData)
-//       .then(response => {
-//         console.log(response.data);
-//       })
-//       .catch(error => {
-//         console.error('Error:', error);
-//       });
-
-//     // Example DELETE request
-//     del('/delete/456')
-//       .then(response => {
-//         console.log(response.data);
-//       })
-//       .catch(error => {
-//         console.error('Error:', error);
-//       });
-
-//     // Example custom request
-//     const customData = { customKey: 'customValue' };
-//     customRequest('PATCH', '/custom/789', customData)
-//       .then(response => {
-//         console.log(response.data);
-//       })
-//       .catch(error => {
-//         console.error('Error:', error);
-//       });
+  instance.request({
+    method,
+    url,
+    data,
+    ...config,
+    headers: { Authorization: `Bearer ${getAuthToken()}` },
+  });

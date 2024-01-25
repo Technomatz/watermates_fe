@@ -4,8 +4,10 @@ import { useSelector, useDispatch } from 'react-redux';
 import { toggleFavorite } from '../../redux/reducers/FavoriteReducer';
 import { Box } from '@mui/material';
 import { toast } from 'react-toastify';
+import { get } from '../../utils/api';
 function ProductDescription() {
   const [localIsFavorite, setLocalIsFavorite] = useState([]);
+  const [productDetails, setProductDetails] = useState({});
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -23,6 +25,18 @@ function ProductDescription() {
     }
   }, [isFavorited, id]);
 
+  useEffect(() => {
+    const fetchProductDetails = async () => {
+      try {
+        const response = await get(`/products/${id}`);
+        setProductDetails(response?.data);
+      } catch (error) {
+        console.error('Error fetching product details:', error);
+      }
+    };
+
+    fetchProductDetails();
+  }, [id]);
   const handleFavoriteClick = () => {
     dispatch(toggleFavorite({ id: parseInt(id) }));
     toast.success(' Item Added To Wishlist!', {
@@ -42,7 +56,10 @@ function ProductDescription() {
     : 'bg-blue-500';
 
   return (
-    <section className="overflow-hidden bg-white py-11 font-poppins dark:bg-gray-800">
+    <section
+      className="overflow-hidden bg-white py-11 font-poppins dark:bg-gray-800"
+      style={{ marginTop: '2rem' }}
+    >
       <Box className="max-w-6xl px-4 py-4 mx-auto lg:py-8 md:px-6">
         <Box className="flex flex-wrap -mx-4">
           <Box className="w-full px-4 md:w-1/2 ">
@@ -113,7 +130,7 @@ function ProductDescription() {
                   New
                 </span>
                 <h2 className="max-w-xl mt-2 mb-6 text-2xl font-bold dark:text-gray-400 md:text-4xl">
-                  Water Can
+                  {productDetails?.name}
                 </h2>
                 <Box className="flex items-center mb-6">
                   <ul className="flex mr-2">
@@ -179,12 +196,10 @@ function ProductDescription() {
                   </p>
                 </Box>
                 <p className="max-w-md mb-8 text-gray-700 dark:text-gray-400">
-                  Lorem ispum dor amet Lorem ispum dor amet Lorem ispum dor amet
-                  Lorem ispum dor amet Lorem ispum dor amet Lorem ispum dor amet
-                  Lorem ispum dor amet Lorem ispum dor amet
+                  {productDetails?.description}
                 </p>
                 <p className="inline-block mb-8 text-4xl font-bold text-gray-700 dark:text-gray-400 ">
-                  <span>$1000.99</span>
+                  <span>{productDetails?.price}</span>
                   <span className="text-base font-normal text-gray-500 line-through dark:text-gray-400">
                     $1500.99
                   </span>

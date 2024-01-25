@@ -1,52 +1,23 @@
 import { Box, Grid } from '@mui/material';
 import React, { useEffect, useState } from 'react';
 import ProductCard from '../Cards/ProductCard';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { get } from '../../utils/api';
-import {
-  setError,
-  setLoading,
-  setProducts,
-} from '../../redux/reducers/ProductsReducers';
-import { productsResponse } from '../../constants';
 
 function ProductListingPAge() {
   const [isFavorited, setIsFavorited] = useState(false);
-  const dispatch = useDispatch();
+  const [products, setProducts] = useState();
+  const image =
+    'https://media.istockphoto.com/id/178035079/photo/three-blue-water-cooler-bottles-isolated-on-white.jpg?s=612x612&w=0&k=20&c=oJnhg6E5rRxV8W-VLHg3ehyQNDMZlYwx3ia1l2d_Mx8=';
 
   useEffect(() => {
-    const fetchData = async () => {
-      dispatch(setLoading());
-
-      try {
-        let response = await get('/products').then((response) =>
-          response.json(),
-        );
-
-        console.log(response, '////response');
-        console.log(response?.data, '////responsedata');
-
-        dispatch(setProducts(response.data));
-      } catch (error) {
-        console.log(error);
-        dispatch(setError(error.message));
-      }
+    const fetchProducts = async () => {
+      let response = await get('/products').then((response) => response);
+      setProducts(response?.data);
     };
 
-    fetchData();
-  }, [dispatch]);
-
-  // useEffect(() => {
-  //   const fetchData = async () => {
-  //     const Products = await get('/products').then((response) => response.data);
-  //     if (!products) {
-  //       setProducts(productsResponse);
-  //     } else {
-  //       setProducts(Products);
-  //     }
-  //   };
-  //   fetchData();
-  // }, []);
+    fetchProducts();
+  }, []);
 
   const isFavorite = useSelector((state) => state.favorite);
   return (
@@ -58,12 +29,12 @@ function ProductListingPAge() {
           spacing={4}
           sx={{ display: 'flex', flexDirection: 'row' }}
         >
-          {productsResponse.map((data, index) => {
+          {products?.map((data, index) => {
             return (
               <Grid item xs={12} sm={6} lg={4} xl={3} key={index}>
                 <ProductCard
                   id={data.id}
-                  imgUrl={data.img}
+                  imgUrl={image}
                   title={data.name}
                   discription={data.description}
                   price={data.price}
