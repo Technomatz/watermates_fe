@@ -4,7 +4,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { toggleFavorite } from '../../redux/reducers/FavoriteReducer';
 import { Box } from '@mui/material';
 import { toast } from 'react-toastify';
-import { get } from '../../utils/api';
+import { Get } from '../../utils/api';
 function ProductDescription() {
   const [localIsFavorite, setLocalIsFavorite] = useState([]);
   const [productDetails, setProductDetails] = useState({});
@@ -28,7 +28,7 @@ function ProductDescription() {
   useEffect(() => {
     const fetchProductDetails = async () => {
       try {
-        const response = await get(`/products/${id}`);
+        const response = await Get(`/products/${id}`, { isAuth: false });
         setProductDetails(response?.data);
       } catch (error) {
         console.error('Error fetching product details:', error);

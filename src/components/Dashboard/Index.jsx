@@ -1,9 +1,9 @@
 /** @format */
 
-import React from "react";
+import React from 'react';
 
 const Index = () => {
-  return <div>Hello world</div>;
+  return <div></div>;
 };
 
 export default Index;

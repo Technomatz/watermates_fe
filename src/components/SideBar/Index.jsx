@@ -10,7 +10,6 @@ import { Divider } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { logout } from '../../redux/reducers/authreducer';
-import { del } from '../../utils/api';
 const Sidebar = () => {
   const [selectedImage, setSelectedImage] = useState(null);
   const fileInputRef = useRef(null);
@@ -65,7 +64,7 @@ const Sidebar = () => {
 
   const handleLogOut = async () => {
     dispatch(logout);
-    await del('/users/logout');
+    localStorage.clear();
     navigate('/');
   };
 

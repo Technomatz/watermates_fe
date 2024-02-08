@@ -14,7 +14,7 @@ import * as Yup from 'yup';
 import { useFormik } from 'formik';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { post } from '../../utils/api';
+import { Post } from '../../utils/api';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { login } from '../../redux/reducers/authreducer';
@@ -38,7 +38,7 @@ export default function Login() {
         email: values.email,
         password: values.password,
       };
-      post('/users/login', finalData)
+      Post('/users/login', finalData)
         .then((res) => {
           localStorage.setItem('token', res.data.token);
           localStorage.setItem('user', res.data.user);

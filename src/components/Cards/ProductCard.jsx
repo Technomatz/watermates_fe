@@ -6,7 +6,7 @@ import { Favorite } from '@mui/icons-material';
 import { toast } from 'react-toastify';
 import { Link } from 'react-router-dom';
 import { Box } from '@mui/material';
-import { post } from '../../utils/api';
+import { Post } from '../../utils/api';
 import { toggleCart } from '../../redux/reducers/CartReducer';
 
 function ProductCard({ imgUrl, title, discription, price, id, isFavorite }) {
@@ -74,9 +74,13 @@ function ProductCard({ imgUrl, title, discription, price, id, isFavorite }) {
     dispatch(toggleCart({ id }));
 
     try {
-      await post(`/products/${id}/add_to_cart`, {
-        id,
-      });
+      await Post(
+        `/products/${id}/add_to_cart`,
+        {
+          id,
+        },
+        { isAuthRequired: true },
+      );
 
       toast.success(
         isCatItem ? 'Item Removed From Cart!' : 'Item Added To Cart!',

@@ -1,40 +1,44 @@
 import axios from 'axios';
 
-const instance = axios.create({
+const axiosInstance = axios.create({
   baseURL: 'http://localhost:4000/api/v1',
   timeout: 5000,
 });
 
 const getAuthToken = () => {
-  return localStorage.getItem('token');
+  const token = localStorage.getItem('token');
+  if (token) {
+    return token;
+  }
+  return;
 };
 
-export const get = (url, config = {}) =>
-  instance.get(url, {
-    ...config,
-    headers: { Authorization: `Bearer ${getAuthToken()}` },
-  });
-export const post = (url, data, config = {}) =>
-  instance.post(url, data, {
-    ...config,
-    headers: { Authorization: `Bearer ${getAuthToken()}` },
-  });
-export const put = (url, data, config = {}) =>
-  instance.put(url, data, {
-    ...config,
-    headers: { Authorization: `Bearer ${getAuthToken()}` },
-  });
-export const del = (url, config = {}) =>
-  instance.delete(url, {
-    ...config,
-    headers: { Authorization: `Bearer ${getAuthToken()}` },
-  });
+console.log(getAuthToken(), './/////authtokenfunc');
 
-export const customRequest = (method, url, data, config = {}) =>
-  instance.request({
+axiosInstance.interceptors.request.use((config) => {
+  const token = getAuthToken();
+  const { isAuthRequired = false } = config;
+  if (token && isAuthRequired) {
+    config.headers.Authorization = `Bearer ${token}`;
+  }
+  return config;
+});
+
+export const Get = (url, config = {}) => axiosInstance.get(url, config);
+
+export const Post = (url, data, config = {}) =>
+  axiosInstance.post(url, data, config);
+
+export const Put = (url, data, config = {}) =>
+  axiosInstance.put(url, data, config);
+
+export const Delete = (url, data, config = {}) =>
+  axiosInstance.delete(url, data, config);
+
+export const CustomRequest = (method, url, data, config = {}) =>
+  axiosInstance.request({
     method,
     url,
     data,
     ...config,
-    headers: { Authorization: `Bearer ${getAuthToken()}` },
   });
