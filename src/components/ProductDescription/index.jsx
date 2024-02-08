@@ -3,8 +3,11 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { toggleFavorite } from '../../redux/reducers/FavoriteReducer';
 import { Box } from '@mui/material';
+import { toast } from 'react-toastify';
+import { Get } from '../../utils/api';
 function ProductDescription() {
   const [localIsFavorite, setLocalIsFavorite] = useState([]);
+  const [productDetails, setProductDetails] = useState({});
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -22,15 +25,41 @@ function ProductDescription() {
     }
   }, [isFavorited, id]);
 
+  useEffect(() => {
+    const fetchProductDetails = async () => {
+      try {
+        const response = await Get(`/products/${id}`, { isAuth: false });
+        setProductDetails(response?.data);
+      } catch (error) {
+        console.error('Error fetching product details:', error);
+      }
+    };
+
+    fetchProductDetails();
+  }, [id]);
   const handleFavoriteClick = () => {
     dispatch(toggleFavorite({ id: parseInt(id) }));
+    toast.success(' Item Added To Wishlist!', {
+      position: 'bottom-center',
+      autoClose: 1000,
+      hideProgressBar: true,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: 'dark',
+    });
   };
+
   const removeFromWishlistClassName = localIsFavorite
     ? 'bg-red-500'
     : 'bg-blue-500';
 
   return (
-    <section className="overflow-hidden bg-white py-11 font-poppins dark:bg-gray-800">
+    <section
+      className="overflow-hidden bg-white py-11 font-poppins dark:bg-gray-800"
+      style={{ marginTop: '2rem' }}
+    >
       <Box className="max-w-6xl px-4 py-4 mx-auto lg:py-8 md:px-6">
         <Box className="flex flex-wrap -mx-4">
           <Box className="w-full px-4 md:w-1/2 ">
@@ -101,7 +130,7 @@ function ProductDescription() {
                   New
                 </span>
                 <h2 className="max-w-xl mt-2 mb-6 text-2xl font-bold dark:text-gray-400 md:text-4xl">
-                  Water Can
+                  {productDetails?.name}
                 </h2>
                 <Box className="flex items-center mb-6">
                   <ul className="flex mr-2">
@@ -167,12 +196,10 @@ function ProductDescription() {
                   </p>
                 </Box>
                 <p className="max-w-md mb-8 text-gray-700 dark:text-gray-400">
-                  Lorem ispum dor amet Lorem ispum dor amet Lorem ispum dor amet
-                  Lorem ispum dor amet Lorem ispum dor amet Lorem ispum dor amet
-                  Lorem ispum dor amet Lorem ispum dor amet
+                  {productDetails?.description}
                 </p>
                 <p className="inline-block mb-8 text-4xl font-bold text-gray-700 dark:text-gray-400 ">
-                  <span>$1000.99</span>
+                  <span>{productDetails?.price}</span>
                   <span className="text-base font-normal text-gray-500 line-through dark:text-gray-400">
                     $1500.99
                   </span>
@@ -243,7 +270,7 @@ function ProductDescription() {
                     className="flex items-center justify-center w-full p-4 text-blue-500 border border-blue-500 rounded-md dark:text-gray-200 dark:border-blue-600 hover:bg-blue-600 hover:border-blue-600 hover:text-gray-100 dark:bg-blue-600 dark:hover:bg-blue-700 dark:hover:border-blue-700 dark:hover:text-gray-300"
                     onClick={handleClick}
                   >
-                    Add to cart
+                    Buy Now
                   </button>
                 </Box>
                 <Box className="w-full px-4 mb-4 lg:mb-0 lg:w-1/2">

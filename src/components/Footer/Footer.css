@@ -9,15 +9,18 @@ ul {
 }
 
 .parentDiv {
-  position: absolute;
   bottom: 0;
-  width: 100vw;
-  background: #fac06f;
-  margin-top: 5rem;
+  width: 100%;
   display: flex;
   justify-content: space-around;
   padding: 20px 0px;
-  height: 100vh;
+  height: 100%;
+  color: gray;
+  background: white;
+  box-shadow:
+    0px 2px 4px -1px rgba(0, 0, 0, 0.2),
+    0px 4px 5px 0px rgba(0, 0, 0, 0.14),
+    0px 1px 10px 0px rgba(0, 0, 0, 0.12);
 }
 
 .childDiv {
@@ -31,70 +34,64 @@ ul {
 }
 
 .internalparentDiv {
-  width: 60vw;
-  background: #fac06f;
-  margin-top: 5rem;
   display: flex;
   justify-content: space-between;
-  padding: 40px 0px;
-  height: 100vh;
+  padding: 60px 50px;
+  gap: 10rem;
+}
+
+@media (max-width: 768px) {
+  .internalparentDiv {
+    flex-direction: column;
+    gap: 20px;
+  }
+}
+
+@media (max-width: 768px) {
+  .contactBox {
+    display: flex;
+    flex-direction: column;
+  }
 }
 
 .instagram-icon {
   background: linear-gradient(45deg, #405de6, #5851db, #ff5e62, #f77737);
-  /* border-radius: 50%;
-    /* Assuming the icon is a circle */
+
   width: 30px !important;
-  /* Adjust the size as needed */
   height: 30px !important;
   display: flex;
   justify-content: center;
   align-items: center;
   color: white;
-  /* Set the text color to white or another suitable color */
 }
 
 .youtube-icon {
   background: #ff0000;
-  /* YouTube Red */
   border-radius: 50%;
-  /* Assuming the icon is a circle */
   width: 30px !important;
-  /* Adjust the size as needed */
   height: 30px !important;
   display: flex;
   justify-content: center;
   align-items: center;
   color: white;
-  /* Set the text color to white or another suitable color */
 }
 
 .twitter-icon {
   background: #1da1f2;
-  /* Twitter Blue */
   border-radius: 50%;
-  /* Assuming the icon is a circle */
   width: 30px !important;
-  /* Adjust the size as needed */
   height: 30px !important;
   display: flex;
   justify-content: center;
   align-items: center;
   color: white;
-  /* Set the text color to white or another suitable color */
 }
 
 .facebook-icon {
   background: #1877f2;
-  /* Facebook Blue */
   border-radius: 50%;
-  /* Assuming the icon is a circle */
   width: 30px !important;
-  /* Adjust the size as needed */
   height: 30px !important;
-  /* display: flex;
-    justify-content: center; */
   align-items: center;
   color: white;
-  /* Set the text color to white or another suitable color */
 }

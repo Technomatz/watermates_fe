@@ -25,12 +25,32 @@ function ResponsiveAppBar() {
 
   const navigate = useNavigate();
 
+  const handleOpenProfileMenu = (event) => {
+    if (event && event.currentTarget) {
+      setAnchorElNav(event.currentTarget);
+    }
+  };
+  const handleLogin = () => {
+    navigate('/login');
+  };
+  const handleSignup = () => {
+    navigate('/signup');
+  };
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
   };
 
   const handleCloseNavMenu = () => {
     setAnchorElNav(null);
+  };
+
+  const handleProfileClick = (event) => {
+    const userExists = localStorage.getItem('user');
+    if (userExists) {
+      navigate('/myprofile');
+    } else {
+      handleOpenProfileMenu(event);
+    }
   };
 
   const CartItems = useSelector((state) => state.cart);
@@ -167,11 +187,7 @@ function ResponsiveAppBar() {
                 width: '35px',
                 cursor: 'pointer',
               }}
-              // onMouseEnter={toggleBoxVisibility}
-              // onMouseLeave={toggleBoxVisibility}
-              onClick={() => {
-                navigate('/myprofile');
-              }}
+              onClick={handleProfileClick}
             />
             <Badge badgeContent={CartItems.length} color="primary">
               <ShoppingCartOutlinedIcon
@@ -188,6 +204,27 @@ function ResponsiveAppBar() {
               />
             </Badge>
           </Box>
+          <Menu
+            id="menu-appbar"
+            anchorEl={anchorElNav}
+            open={Boolean(anchorElNav)}
+            onClose={handleCloseNavMenu}
+          >
+            {!localStorage.getItem('user') && (
+              <>
+                <MenuItem>
+                  <Typography textAlign="center" onClick={handleLogin}>
+                    Login
+                  </Typography>
+                </MenuItem>
+                <MenuItem>
+                  <Typography textAlign="center" onClick={handleSignup}>
+                    Signup
+                  </Typography>
+                </MenuItem>
+              </>
+            )}
+          </Menu>
         </Toolbar>
       </Container>
     </AppBar>

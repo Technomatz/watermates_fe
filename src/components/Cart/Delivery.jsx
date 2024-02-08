@@ -22,7 +22,7 @@ import { toast } from 'react-toastify';
 import {
   clearUserAddress,
   updateUserAddress,
-} from '../../redux/reducers/userReducer';
+} from '../../redux/reducers/UserAddress';
 
 function Delivery({ currentStape, setCurrentStape }) {
   const [isModalOpen, setModalOpen] = useState(false);

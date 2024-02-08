@@ -1,71 +1,44 @@
-/** @format */
-
-// api.js
 import axios from 'axios';
 
-const instance = axios.create({
-  baseURL: 'http://localhost:4000/api/v1', // Replace with your API base URL
-  timeout: 5000, // Adjust timeout as needed
+const axiosInstance = axios.create({
+  baseURL: 'http://localhost:4000/api/v1',
+  timeout: 5000,
 });
 
-export const get = (url, config = {}) => instance.get(url, config);
-export const post = (url, data, config = {}) =>
-  instance.post(url, data, config);
-export const put = (url, data, config = {}) => instance.put(url, data, config);
-export const del = (url, config = {}) => instance.delete(url, config);
+const getAuthToken = () => {
+  const token = localStorage.getItem('token');
+  if (token) {
+    return token;
+  }
+  return;
+};
 
-// You can add more custom methods or configurations as needed
-export const customRequest = (method, url, data, config = {}) =>
-  instance.request({ method, url, data, ...config });
+console.log(getAuthToken(), './/////authtokenfunc');
 
-// How you can use these methods inside your components
+axiosInstance.interceptors.request.use((config) => {
+  const token = getAuthToken();
+  const { isAuthRequired = false } = config;
+  if (token && isAuthRequired) {
+    config.headers.Authorization = `Bearer ${token}`;
+  }
+  return config;
+});
 
-// import { get, post, put, del, customRequest } from './api'; // Adjust the path accordingly
+export const Get = (url, config = {}) => axiosInstance.get(url, config);
 
-//     // Example GET request
-//     get('/data')
-//       .then(response => {
-//         console.log(response.data);
-//       })
-//       .catch(error => {
-//         console.error('Error:', error);
-//       });
+export const Post = (url, data, config = {}) =>
+  axiosInstance.post(url, data, config);
 
-//     // Example POST request
-//     const postData = { key: 'value' };
-//     post('/create', postData)
-//       .then(response => {
-//         console.log(response.data);
-//       })
-//       .catch(error => {
-//         console.error('Error:', error);
-//       });
+export const Put = (url, data, config = {}) =>
+  axiosInstance.put(url, data, config);
 
-//     // Example PUT request
-//     const putData = { updatedKey: 'updatedValue' };
-//     put('/update/123', putData)
-//       .then(response => {
-//         console.log(response.data);
-//       })
-//       .catch(error => {
-//         console.error('Error:', error);
-//       });
+export const Delete = (url, data, config = {}) =>
+  axiosInstance.delete(url, data, config);
 
-//     // Example DELETE request
-//     del('/delete/456')
-//       .then(response => {
-//         console.log(response.data);
-//       })
-//       .catch(error => {
-//         console.error('Error:', error);
-//       });
-
-//     // Example custom request
-//     const customData = { customKey: 'customValue' };
-//     customRequest('PATCH', '/custom/789', customData)
-//       .then(response => {
-//         console.log(response.data);
-//       })
-//       .catch(error => {
-//         console.error('Error:', error);
-//       });
+export const CustomRequest = (method, url, data, config = {}) =>
+  axiosInstance.request({
+    method,
+    url,
+    data,
+    ...config,
+  });

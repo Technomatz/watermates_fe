@@ -1,4 +1,4 @@
-import { Box } from '@mui/material';
+import { Box, Typography } from '@mui/material';
 import React from 'react';
 import './Footer.css';
 import { Link } from 'react-router-dom';
@@ -7,27 +7,16 @@ import { Facebook, Instagram, Twitter, YouTube } from '@mui/icons-material';
 function Footer() {
   return (
     <>
-      <div>
+      <Box style={{}}>
         <Box className="parentDiv">
-          <Box className="internalparentDiv">
+          <Box className="internalparentDiv" sx={{ position: 'relative' }}>
             <Box className="childDiv">
               <h2 className="footerheadeing">About us</h2>
               <ul>
                 <li>
                   <Link>Our Journey </Link>
                 </li>
-                <li>
-                  <Link>What makes us Stand Apart</Link>
-                </li>
-                <li>
-                  <Link>114 Quality Test</Link>
-                </li>
-                <li>
-                  <Link>The Promise of 10</Link>
-                </li>
-                <li>
-                  <Link>Vision Mission & Values</Link>
-                </li>
+
                 <li>
                   <Link>Leadership Team</Link>
                 </li>
@@ -46,9 +35,6 @@ function Footer() {
                 <li>
                   <Link> FAQs </Link>
                 </li>
-                <li>
-                  <Link>Annual Return </Link>
-                </li>
               </ul>
             </Box>
             <Box className="childDiv">
@@ -60,12 +46,7 @@ function Footer() {
                 <li>
                   <Link>Vedica </Link>{' '}
                 </li>
-                <li>
-                  <Link>Spyci </Link>{' '}
-                </li>
-                <li>
-                  <Link>Limonata </Link>{' '}
-                </li>
+
                 <li>
                   <Link>Bisleri Soda</Link>{' '}
                 </li>
@@ -80,9 +61,6 @@ function Footer() {
                 </li>
                 <li>
                   <Link>Blogs </Link>
-                </li>
-                <li>
-                  <Link>UAE</Link>{' '}
                 </li>
               </ul>
             </Box>
@@ -104,41 +82,58 @@ function Footer() {
               </Box>
             </Box>
 
-            <Box className="childDiv">
-              <h4 className="footerheadeing">Contact</h4>
-              <ul>
-                <li>
-                  <Link>Bisleri Internation Pvt. Ltd. </Link>
-                </li>
-                <li>
-                  <Link>CTS No. 525/1A/1 , Western Express Highway, </Link>
-                </li>
-                <li>
-                  <Link>Opp Hindustan Uniliver, at Chakala </Link>
-                </li>
-                <li>
-                  <Link>division,</Link>
-                </li>
-                <li>
-                  <Link>Andheri (East) , Mumbai - 400 099 </Link>
-                </li>
-              </ul>
-              <span className="contact">Email : </span>{' '}
-              <span>watermates@gmail.com</span>
-              <span className="contact">Phone : </span>{' '}
-              <span>1800-121-1001</span>
-              <h6> 8 Am To 8 PM</h6>
-              <h6> Monday To Saturday</h6>
-              <Box sx={{ display: 'flex', gap: '10px' }}>
-                <Facebook className="facebook-icon" />
-                <Twitter className="twitter-icon" />
-                <Instagram className="instagram-icon" />
-                <YouTube className="youtube-icon" />
+            <Box
+              className="childDiv contactBox"
+              sx={{ display: 'flex', flexDirection: 'row' }}
+            >
+              <Box>
+                <h4 className="footerheadeing">Contact</h4>
+                <ul style={{ marginTop: '15px' }}>
+                  <li>
+                    <Link>Bisleri Internation Pvt. Ltd. </Link>
+                  </li>
+                  <li>
+                    <Link>CTS No. 525/1A/1 , Western Express Highway, </Link>
+                  </li>
+                  <li>
+                    <Link>Opp Hindustan Uniliver, at Chakala </Link>
+                  </li>
+                  <li>
+                    <Link>division,</Link>
+                  </li>
+                  <li>
+                    <Link>Andheri (East) , Mumbai - 400 099 </Link>
+                  </li>
+                </ul>
               </Box>
+              <Box
+                sx={{
+                  display: 'flex',
+                  flexDirection: 'column',
+                  gap: '1rem',
+                  marginLeft: '30px',
+                }}
+              >
+                <span className="contact">Email : </span>{' '}
+                <span>watermates@gmail.com</span>
+                <span className="contact">Phone : </span>{' '}
+                <span>1800-121-1001</span>
+                <h6> 8 Am To 8 PM</h6>
+                <h6> Monday To Saturday</h6>
+                <Box sx={{ display: 'flex', gap: '10px' }}>
+                  <Facebook className="facebook-icon" />
+                  <Twitter className="twitter-icon" />
+                  <Instagram className="instagram-icon" />
+                  <YouTube className="youtube-icon" />
+                </Box>
+              </Box>
+            </Box>
+            <Box sx={{ position: 'absolute', bottom: '0', left: '40%' }}>
+              <Typography>@2024 all right reserved</Typography>
             </Box>
           </Box>
         </Box>
-      </div>
+      </Box>
     </>
   );
 }

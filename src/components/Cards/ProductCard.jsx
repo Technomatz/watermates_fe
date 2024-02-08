@@ -5,8 +5,9 @@ import { toggleFavorite } from '../../redux/reducers/FavoriteReducer';
 import { Favorite } from '@mui/icons-material';
 import { toast } from 'react-toastify';
 import { Link } from 'react-router-dom';
-import { toggleCart } from '../../redux/reducers/CartReducer';
 import { Box } from '@mui/material';
+import { Post } from '../../utils/api';
+import { toggleCart } from '../../redux/reducers/CartReducer';
 
 function ProductCard({ imgUrl, title, discription, price, id, isFavorite }) {
   const [localIsFavorite, setLocalIsFavorite] = useState(false);
@@ -67,33 +68,35 @@ function ProductCard({ imgUrl, title, discription, price, id, isFavorite }) {
     }, 1000);
   };
 
-  const handleAddToCartClick = (e) => {
+  const handleAddToCartClick = async (e) => {
     e.preventDefault();
 
-    if (isCatItem) {
-      dispatch(toggleCart({ id, imgUrl, title, discription, price }));
-      toast.success('Item Removed From Cart!', {
-        position: 'bottom-center',
-        autoClose: 1000,
-        hideProgressBar: true,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: 'dark',
-      });
-    } else {
-      dispatch(toggleCart({ id, imgUrl, title, discription, price }));
-      toast.success('Item Added To Cart!', {
-        position: 'bottom-center',
-        autoClose: 1000,
-        hideProgressBar: true,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: 'dark',
-      });
+    dispatch(toggleCart({ id }));
+
+    try {
+      await Post(
+        `/products/${id}/add_to_cart`,
+        {
+          id,
+        },
+        { isAuthRequired: true },
+      );
+
+      toast.success(
+        isCatItem ? 'Item Removed From Cart!' : 'Item Added To Cart!',
+        {
+          position: 'bottom-center',
+          autoClose: 1000,
+          hideProgressBar: true,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: 'dark',
+        },
+      );
+    } catch (error) {
+      console.error('Error adding item to cart:', error);
     }
   };
 

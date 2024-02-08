@@ -8,11 +8,11 @@ import {
 } from '@mui/icons-material';
 import { Divider } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
-
+import { useDispatch, useSelector } from 'react-redux';
+import { logout } from '../../redux/reducers/authreducer';
 const Sidebar = () => {
   const [selectedImage, setSelectedImage] = useState(null);
   const fileInputRef = useRef(null);
-
   const handleIconClick = () => {
     fileInputRef.current.click();
   };
@@ -26,6 +26,8 @@ const Sidebar = () => {
   };
   const [activeMenu, setActiveMenu] = useState('acc');
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const userName = useSelector((state) => state?.auth?.user?.full_name);
 
   const getRoutes = () => {
     let currentPath = window.location.pathname;
@@ -60,6 +62,12 @@ const Sidebar = () => {
     getRoutes();
   }, [activeMenu]);
 
+  const handleLogOut = async () => {
+    dispatch(logout);
+    localStorage.clear();
+    navigate('/');
+  };
+
   return (
     <div className="sidebar">
       <div className="sidebar-user">
@@ -72,7 +80,7 @@ const Sidebar = () => {
             )}
           </div>
           <span style={{ color: 'black' }}>
-            Welcome back <span style={{ color: 'red' }}> Boss</span>
+            Welcome back <span style={{ color: 'red' }}> {userName}</span>
           </span>
           <div style={{ marginTop: '10px', textAlign: 'center' }}>
             <input
@@ -136,7 +144,9 @@ const Sidebar = () => {
               favorites
             </div>
 
-            <div className="logout-tab ">Logout</div>
+            <div className="logout-tab " onClick={handleLogOut}>
+              Logout
+            </div>
           </div>
         </div>
       </div>

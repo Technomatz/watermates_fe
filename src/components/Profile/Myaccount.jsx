@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import TextField from '@mui/material/TextField';
 import MenuItem from '@mui/material/MenuItem';
-import { Box } from '@mui/material';
+import { Box, Button } from '@mui/material';
 import { PermIdentity } from '@mui/icons-material';
 import { useSelector } from 'react-redux';
 
@@ -9,6 +9,7 @@ const genders = ['Male', 'Female', 'Other'];
 const renderInputLabel = (label, value) => {
   return value ? label : '';
 };
+
 const MyAccount = () => {
   const [formData, setFormData] = useState({
     name: '',
@@ -17,7 +18,11 @@ const MyAccount = () => {
     gender: '',
     birthday: '',
   });
+
+  console.log(formData);
+  const [isEditing, setIsEditing] = useState(false);
   const user = useSelector((state) => state.user.user);
+  const loggedInUser = useSelector((state) => state?.auth?.user);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -25,11 +30,18 @@ const MyAccount = () => {
       ...prevData,
       [name]: value,
     }));
-    console.log(formData);
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
+  };
+
+  const handleEditClick = () => {
+    setIsEditing(true);
+  };
+
+  const handleSaveClick = () => {
+    setIsEditing(false);
   };
 
   return (
@@ -47,29 +59,58 @@ const MyAccount = () => {
           boxShadow: 'rgba(99, 99, 99, 0.2) 0px 2px 8px 0px',
         }}
       >
-        <Box className="iconwithtitle">
+        <Box
+          className="iconwithtitle"
+          sx={{ display: 'flex', justifyContent: 'space-between' }}
+        >
           {' '}
-          <PermIdentity className="profilepageicons" />
-          Personal Information
+          <Box
+            sx={{
+              display: 'flex',
+              justifyContent: 'center',
+              alignItems: 'center',
+            }}
+          >
+            <PermIdentity className="profilepageicons" />
+            Personal Information
+          </Box>
+          <Box>
+            {isEditing && (
+              <Button onClick={handleSaveClick} style={{ float: 'right' }}>
+                Save
+              </Button>
+            )}
+            {!isEditing && (
+              <Button onClick={handleEditClick} style={{ float: 'right' }}>
+                Edit
+              </Button>
+            )}
+          </Box>
         </Box>
         <Box className="childBox">
           <TextField
             label={renderInputLabel('Name', user[0]?.fullName)}
             name="name"
-            value={user[0]?.fullName}
+            value={loggedInUser?.full_name}
             onChange={handleChange}
             fullWidth
             margin="normal"
+            InputProps={{
+              readOnly: !isEditing,
+            }}
           />
 
           <TextField
             label={renderInputLabel('Email', user[0]?.email)}
             name="email"
             type="email"
-            value={user[0]?.email}
+            value={loggedInUser?.email}
             onChange={handleChange}
             fullWidth
             margin="normal"
+            InputProps={{
+              readOnly: !isEditing,
+            }}
           />
         </Box>
         <Box className="childBox">
@@ -84,6 +125,9 @@ const MyAccount = () => {
             InputLabelProps={{
               shrink: true,
             }}
+            InputProps={{
+              readOnly: !isEditing,
+            }}
           />
 
           <TextField
@@ -94,6 +138,9 @@ const MyAccount = () => {
             onChange={handleChange}
             fullWidth
             margin="normal"
+            InputProps={{
+              readOnly: !isEditing,
+            }}
           >
             {genders.map((gender) => (
               <MenuItem key={gender} value={gender}>
@@ -110,6 +157,9 @@ const MyAccount = () => {
             onChange={handleChange}
             fullWidth
             margin="normal"
+            InputProps={{
+              readOnly: !isEditing,
+            }}
           />
         </Box>
       </Box>
