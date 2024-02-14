@@ -1,147 +1,97 @@
 import React, { useEffect, useState } from 'react';
-import './ProductCard.css';
-import { useDispatch, useSelector } from 'react-redux';
-import { toggleFavorite } from '../../redux/reducers/FavoriteReducer';
-import { Favorite } from '@mui/icons-material';
-import { toast } from 'react-toastify';
-import { Link } from 'react-router-dom';
-import { Box } from '@mui/material';
-import { Post } from '../../utils/api';
-import { toggleCart } from '../../redux/reducers/CartReducer';
+import { Box, Button, Typography } from '@mui/material';
+import { isLoggedIn } from '../../utils';
+import { useNavigate } from 'react-router-dom';
+import AddressPopup from '../Cart/AddressPopup';
+import { useSelector } from 'react-redux';
 
-function ProductCard({ imgUrl, title, discription, price, id, isFavorite }) {
-  const [localIsFavorite, setLocalIsFavorite] = useState(false);
-  const [isCatItem, setIsCartItem] = useState(false);
-  const [animateFavorite, setAnimateFavorite] = useState(false);
-  const dispatch = useDispatch();
-  const state = useSelector((state) => state.favorite);
-  useEffect(() => {
-    if (Array.isArray(state)) {
-      setLocalIsFavorite(state.map((item) => item.id).includes(id));
-    }
-  }, [isFavorite, id, state]);
-  const isCartItems = useSelector((state) => state.cart);
+function ProductCard({ imgUrl, title, discription, price }) {
+  const [showSignup, setShowSignup] = useState(false);
+  const [isModalOpen, setModalOpen] = useState(false);
+  const [Addresess, setAddresess] = useState([]);
+  const [selectedAddressIndex, setSelectedAddressIndex] = useState(null);
+  const [defaultAddressIndex, setDefaultAddressIndex] = useState(0);
 
-  useEffect(() => {
-    if (Array.isArray(isCartItems)) {
-      setIsCartItem(isCartItems.map((item) => item.id).includes(parseInt(id)));
-    }
-  }, [isCartItems, id]);
+  const user = useSelector((state) => state?.user?.user);
 
-  const handleFavoriteClick = (e) => {
-    e.preventDefault();
-    setAnimateFavorite(true);
-    if (localIsFavorite) {
-      dispatch(
-        toggleFavorite({
-          id,
-          imgUrl,
-          title,
-          discription,
-          price,
-        }),
-      );
+  const handleSubmitForm = (data) => {
+    if (selectedAddressIndex !== null) {
+      const updatedAddresses = [...Addresess];
+      updatedAddresses[selectedAddressIndex] = data;
+      setAddresess(updatedAddresses);
+      setSelectedAddressIndex(null);
     } else {
-      dispatch(
-        toggleFavorite({
-          id,
-          imgUrl,
-          title,
-          discription,
-          price,
-        }),
-      );
-
-      toast.success(' Item Added To Wishlist!', {
-        position: 'bottom-center',
-        autoClose: 1000,
-        hideProgressBar: true,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: 'dark',
-      });
+      setAddresess([...Addresess, data]);
+      setDefaultAddressIndex(Addresess.length);
     }
-    setTimeout(() => {
-      setAnimateFavorite(false);
-    }, 1000);
+    setModalOpen(false);
   };
+  console.log(defaultAddressIndex);
+  const navigate = useNavigate();
 
-  const handleAddToCartClick = async (e) => {
-    e.preventDefault();
-
-    dispatch(toggleCart({ id }));
-
-    try {
-      await Post(
-        `/products/${id}/add_to_cart`,
-        {
-          id,
-        },
-        { isAuthRequired: true },
-      );
-
-      toast.success(
-        isCatItem ? 'Item Removed From Cart!' : 'Item Added To Cart!',
-        {
-          position: 'bottom-center',
-          autoClose: 1000,
-          hideProgressBar: true,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: 'dark',
-        },
-      );
-    } catch (error) {
-      console.error('Error adding item to cart:', error);
+  const handleClick = () => {
+    if (!isLoggedIn()) {
+      setShowSignup(true);
+    } else {
+      setModalOpen(!isModalOpen);
+      if (user.length) {
+        navigate('/cart');
+      }
     }
   };
+
+  useEffect(() => {
+    console.log(showSignup, 'showl=signup');
+  }, [handleClick]);
 
   return (
-    <Link to={`/product/${id}`} style={{ textDecoration: 'none' }}>
-      <section className="card">
-        <Box className="product-image">
-          <img
-            src={imgUrl}
-            alt="OFF-white Red Edition"
-            className="productImg"
-            draggable="false"
-          />
-        </Box>
-        <Box className="product-info">
-          <h2>{title}</h2>
-          <p>{discription}</p>
-          <Box className="price">${price}</Box>
-        </Box>
-        <Box className="btn">
-          <button
-            className={`buy-btn ${isCatItem ? 'in-cart' : ''}`}
-            onClick={(e) => handleAddToCartClick(e)}
-          >
-            {isCatItem ? 'Remove From Cart' : 'Add To Cart'}
-          </button>
-          <button
-            className="fav"
-            onClick={(e) => handleFavoriteClick(e)}
-            style={{
-              transform: animateFavorite ? 'scale(1.3)' : 'scale(1)',
-              transition: 'transform 0.1s ease-in-out',
-            }}
-          >
-            <Favorite
-              style={{
-                color: localIsFavorite ? 'red' : '',
-                height: '35px',
-                width: '35px',
-              }}
-            />
-          </button>
-        </Box>
-      </section>
-    </Link>
+    <Box
+      sx={{
+        display: 'flex',
+        height: '40vh',
+        border: '1px solid',
+        padding: '20px 40px',
+        justifyContent: 'space-between',
+      }}
+      className="productContainer"
+    >
+      <Box>
+        <Typography variant="h2" sx={{ alignItems: 'center' }}>
+          {title}
+        </Typography>
+        <Typography variant="h5" sx={{ fontWeight: '400', marginTop: '2rem' }}>
+          {discription}
+        </Typography>
+        <Typography variant="h6">Rs {price} /Can</Typography>
+
+        <Button
+          variant="contained"
+          color="secondary"
+          sx={{ marginTop: '3rem' }}
+          size="large"
+          onClick={handleClick}
+        >
+          Book Now
+        </Button>
+      </Box>
+      <Box>
+        <img
+          src={imgUrl}
+          style={{ height: '100%', width: '100%' }}
+          alt={title}
+        />
+      </Box>
+      {showSignup ? (
+        navigate('/signup')
+      ) : (
+        <AddressPopup
+          isModalOpen={isModalOpen}
+          setModalOpen={setModalOpen}
+          onSubmit={handleSubmitForm}
+        />
+      )}
+    </Box>
   );
 }
+
 export default ProductCard;

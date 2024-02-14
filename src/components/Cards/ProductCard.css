@@ -156,3 +156,10 @@
     gap: 3rem;
   }
 }
+
+@media (max-width: 800px) {
+  .productContainer {
+    display: flex;
+    flex-direction: column-reverse;
+  }
+}

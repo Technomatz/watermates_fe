@@ -41,7 +41,7 @@ export default function Login() {
       Post('/users/login', finalData)
         .then((res) => {
           localStorage.setItem('token', res.data.token);
-          localStorage.setItem('user', res.data.user);
+          localStorage.setItem('user', JSON.stringify(res.data.user));
 
           dispatch(login(res.data.user));
           toast.success('Success Notification !', {

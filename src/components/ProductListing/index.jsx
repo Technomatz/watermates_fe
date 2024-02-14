@@ -1,11 +1,17 @@
-import { Box, Grid } from '@mui/material';
+import { Box } from '@mui/material';
 import React, { useEffect, useState } from 'react';
 import ProductCard from '../Cards/ProductCard';
 import { useSelector } from 'react-redux';
 import { Get } from '../../utils/api';
 import Footer from '../Footer/Index';
 
-function ProductListingPAge() {
+import Slider from 'react-slick';
+import 'slick-carousel/slick/slick.css';
+import 'slick-carousel/slick/slick-theme.css';
+import { ArrowBackIosNew, ArrowForwardIos } from '@mui/icons-material';
+import './ProductListing.css';
+
+function ProductListingPage() {
   const [isFavorited, setIsFavorited] = useState(false);
   const [products, setProducts] = useState([]);
   const image =
@@ -20,43 +26,57 @@ function ProductListingPAge() {
     fetchProducts();
   }, []);
 
+  const settings = {
+    dots: true,
+    infinite: true,
+    speed: 500,
+    focusOnSelect: false,
+    slidesToShow: 1,
+    slidesToScroll: 1,
+    autoplay: true,
+    autoplaySpeed: 20000,
+    arrows: true, // Changed to true
+    prevArrow: <ArrowBackIosNew />,
+    nextArrow: <ArrowForwardIos />,
+    responsive: [
+      {
+        breakpoint: 768,
+        settings: {
+          slidesToShow: 1,
+          centerMode: false,
+        },
+      },
+    ],
+  };
+
   const isFavorite = useSelector((state) => state.favorite);
+
   return (
     <>
-      <Box
-        sx={{ flexGrow: 1, padding: '5%', marginTop: '3rem', height: '100%' }}
-      >
-        <Grid container spacing={1}>
-          <Grid
-            container
-            item
-            spacing={4}
-            sx={{ display: 'flex', flexDirection: 'row' }}
-          >
-            {products?.map((data, index) => {
-              const imageUrl =
-                data.images &&
-                Array.isArray(data.images) &&
-                data.images.length > 0
-                  ? image
-                  : image;
-              return (
-                <Grid item xs={12} sm={6} lg={4} xl={3} key={index}>
-                  <ProductCard
-                    id={data.id}
-                    imgUrl={imageUrl}
-                    title={data.name}
-                    discription={data.description}
-                    price={data.price}
-                    isFavorite={isFavorite}
-                    isFavorited={isFavorited}
-                    setIsFavorited={setIsFavorited}
-                  />
-                </Grid>
-              );
-            })}
-          </Grid>
-        </Grid>
+      <Box sx={{ padding: '5%', marginTop: '3rem', height: '60vh' }}>
+        <Slider {...settings} style={{ width: '85%', margin: 'auto' }}>
+          {products?.map((data, index) => {
+            const imageUrl =
+              data.images &&
+              Array.isArray(data.images) &&
+              data.images.length > 0
+                ? image
+                : image;
+            return (
+              <ProductCard
+                id={data.id}
+                key={index}
+                imgUrl={imageUrl}
+                title={data.name}
+                discription={data?.description}
+                price={data.price}
+                isFavorite={isFavorite}
+                isFavorited={isFavorited}
+                setIsFavorited={setIsFavorited}
+              />
+            );
+          })}
+        </Slider>
       </Box>
 
       <Footer />
@@ -64,4 +84,4 @@ function ProductListingPAge() {
   );
 }
 
-export default ProductListingPAge;
+export default ProductListingPage;

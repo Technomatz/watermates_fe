@@ -1,6 +1,5 @@
 import React from 'react';
 import Card from '@mui/material/Card';
-import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
@@ -8,7 +7,7 @@ import { Box, Divider } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
 import { toggleCart } from '../../redux/reducers/CartReducer';
 
-function MainCart({ setCurrentStape }) {
+function MainCart() {
   const cartItems = useSelector((state) => state.cart);
   const dispatch = useDispatch();
 
@@ -19,38 +18,14 @@ function MainCart({ setCurrentStape }) {
       }),
     );
   };
-  const handleNext = () => {
-    setCurrentStape(1);
-  };
+
   return (
     <Box className="OuterCart">
       <Box className="innermain">
         <Box className="cardscontainer">
           <Box className="leftContainers">
             <Box className="descDiv">
-              <Box className="priceTag">
-                <Box>
-                  {' '}
-                  <span
-                    style={{
-                      fontWeight: 500,
-                      fontSize: '28px',
-                      marginRight: '12px',
-                    }}
-                  >
-                    My cart
-                  </span>
-                  <span style={{ background: '#c0edfa', padding: '6px' }}>
-                    {' '}
-                    <span style={{ background: 'yellow' }}>
-                      {cartItems.length}
-                    </span>{' '}
-                    item(s)
-                  </span>
-                </Box>
-                <Box style={{ fontSize: '30px' }}>₹490</Box>
-              </Box>
-              {cartItems.length ? (
+              {cartItems &&
                 cartItems.map((elem, index) => {
                   return (
                     <>
@@ -172,10 +147,7 @@ function MainCart({ setCurrentStape }) {
                       </Card>
                     </>
                   );
-                })
-              ) : (
-                <h2>No Item Added in Cart</h2>
-              )}
+                })}
             </Box>
             <br />
             <Box className="buttomcontainer">
@@ -234,80 +206,6 @@ function MainCart({ setCurrentStape }) {
                 </CardContent>
               </Card>
             </Box>
-          </Box>
-          <Box
-            className="sideConatiner"
-            style={{ maxWidth: '50vw', marginTop: '54px' }}
-          >
-            <Card
-              sx={{
-                boxShadow: '0 3px 20px rgba(7,141,115,.16)',
-                padding: '20px',
-                borderRadius: '10px',
-                backgroundColor: '#c0edfa',
-                width: '20vw',
-              }}
-            >
-              <CardContent>
-                <Typography sx={{ fontSize: 24 }} color="black" gutterBottom>
-                  Price
-                </Typography>
-                <Divider />
-
-                <Box
-                  style={{
-                    display: 'flex',
-                    flexDirection: 'column',
-                    gap: '10px',
-                  }}
-                >
-                  <Box
-                    style={{ display: 'flex', justifyContent: 'space-between' }}
-                  >
-                    <p>Price</p>
-                    <h4>₹85/Per Can</h4>
-                  </Box>
-
-                  <Box
-                    style={{ display: 'flex', justifyContent: 'space-between' }}
-                  >
-                    <p>Delivery Charges</p>
-                    <h4>₹ 0</h4>
-                  </Box>
-                  <Box
-                    style={{ display: 'flex', justifyContent: 'space-between' }}
-                  >
-                    <p>Refundable deposite</p>
-                    <h4>₹30</h4>
-                  </Box>
-                </Box>
-
-                <Divider />
-
-                <Box
-                  style={{
-                    display: 'flex',
-                    justifyContent: 'space-between',
-                    marginTop: '10px',
-                  }}
-                >
-                  <h3>Total</h3>
-                  <h3>490</h3>
-                </Box>
-              </CardContent>
-              <CardActions>
-                <Button
-                  style={{
-                    background: '#00b2a2',
-                    border: '1px solid transparent;',
-                    color: '#fff',
-                  }}
-                  onClick={handleNext}
-                >
-                  Checkout
-                </Button>
-              </CardActions>
-            </Card>
           </Box>
         </Box>
       </Box>
