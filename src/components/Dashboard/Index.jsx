@@ -1,9 +1,15 @@
-/** @format */
-
+import { Box } from '@mui/material';
 import React from 'react';
+import ProductListingPage from '../ProductListing';
 
-const Index = () => {
-  return <div></div>;
+const Dashoard = () => {
+  return (
+    <>
+      <Box>
+        <ProductListingPage />
+      </Box>
+    </>
+  );
 };
 
-export default Index;
+export default Dashoard;

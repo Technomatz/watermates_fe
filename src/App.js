@@ -10,19 +10,20 @@ import ProductDescription from './components/ProductDescription';
 import Cart from './components/Cart/Cart';
 import Delivery from './components/Cart/Delivery';
 import AddressPopup from './components/Cart/AddressPopup';
-import HomePage from './components/Homepage/Index';
+// import HomePage from './components/Homepage/Index';
 import MyProfile from './components/Profile/Index';
 import MyOrders from './components/Profile/MyOrders';
 import Favorites from './components/Profile/Favorites';
 import Subscriptions from './components/Profile/Subscriptions';
 import OrderDetails from './components/Profile/OrderDetails';
+import Dashoard from './components/Dashboard/Index';
 
 function App() {
   return (
     <div className="App">
       <NavBar />
       <Routes>
-        <Route path="/" element={<HomePage />} />
+        <Route path="/" element={<Dashoard />} />
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<SignUp />} />
         <Route path="/myprofile" element={<MyProfile />} />

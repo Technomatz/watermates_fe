@@ -17,12 +17,14 @@ import { LiquorOutlined } from '@mui/icons-material';
 import { useNavigate } from 'react-router-dom';
 import { Badge } from '@mui/material';
 import { useSelector } from 'react-redux';
+import { isLoggedIn } from '../../utils';
 
 const pages = ['Products', 'Pricing', 'Blog'];
 
 function ResponsiveAppBar() {
   const [anchorElNav, setAnchorElNav] = React.useState();
 
+  const user = JSON.parse(localStorage.getItem('user'));
   const navigate = useNavigate();
 
   const handleOpenProfileMenu = (event) => {
@@ -189,6 +191,12 @@ function ResponsiveAppBar() {
               }}
               onClick={handleProfileClick}
             />
+            {isLoggedIn && (
+              <h6 style={{ color: 'grey', marginRight: '8px' }}>
+                {user?.full_name}
+                {}
+              </h6>
+            )}
             <Badge badgeContent={CartItems.length} color="primary">
               <ShoppingCartOutlinedIcon
                 sx={{

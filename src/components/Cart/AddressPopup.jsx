@@ -9,6 +9,8 @@ import {
   IconButton,
   Box,
   Typography,
+  Select,
+  MenuItem,
 } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
 import { enqueueSnackbar } from 'notistack';
@@ -16,12 +18,14 @@ import {
   createUserAddress,
   updateUserAddress,
 } from '../../redux/reducers/UserAddress';
+import { useNavigate } from 'react-router-dom';
 export default function AddressPopup({
   isModalOpen,
   setModalOpen,
   onSubmit,
   editAddress,
 }) {
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const user = useSelector((state) => state.user.user);
 
@@ -36,7 +40,7 @@ export default function AddressPopup({
     state: '',
     roomNumber: '',
     roadName: '',
-    locality: '',
+    square: '',
     alternateMobileNumber: '',
     landmark: '',
   });
@@ -50,13 +54,13 @@ export default function AddressPopup({
         fullName: '',
         mobile: '',
         email: '',
-        selectAddress: '',
+        state: '',
         pinCode: '',
         city: '',
-        state: '',
+        Square: '',
         roomNumber: '',
         roadName: '',
-        locality: '',
+        colony: '',
         alternateMobileNumber: '',
         landmark: '',
       });
@@ -93,6 +97,7 @@ export default function AddressPopup({
         autoHideDuration: 3000,
         anchorOrigin: { horizontal: 'left', vertical: 'top' },
       });
+      navigate('/cart');
     }
 
     onSubmit(formData);
@@ -161,27 +166,34 @@ export default function AddressPopup({
             {' '}
             <TextField
               margin="dense"
-              id="email"
-              label="email"
-              type="text"
+              id="alternatemobileNumber"
+              label=" Alternate Mobile Number"
+              type="tel"
               fullWidth
               required
               variant="standard"
-              value={formData.email}
-              onChange={(e) => handleChange('email', e.target.value)}
+              value={formData.alternateMobileNumber}
+              onChange={(e) =>
+                handleChange('alternateMobileNumber', e.target.value)
+              }
             />
-            {/* <Typography variant="p">Or</Typography> */}
-            <TextField
+            <Select
               margin="dense"
-              id="selectAddress"
-              label="Select Address"
-              type="text"
+              id="state"
+              label="Select State"
+              value={formData.state}
+              onChange={(e) => handleChange('state', e.target.value)}
               fullWidth
-              required
               variant="standard"
-              value={formData.selectAddress}
-              onChange={(e) => handleChange('selectAddress', e.target.value)}
-            />
+              required
+              displayEmpty
+              sx={{ marginTop: '16px' }}
+            >
+              <MenuItem value="" disabled>
+                Select State
+              </MenuItem>
+              <MenuItem value="Indore">Madhya Pradesh</MenuItem>
+            </Select>
           </Box>
           <Box
             display="flex"
@@ -190,6 +202,23 @@ export default function AddressPopup({
             p={2}
             gap={4}
           >
+            <Select
+              margin="dense"
+              id="city"
+              label="Select City"
+              value={formData.city}
+              onChange={(e) => handleChange('city', e.target.value)}
+              fullWidth
+              variant="standard"
+              required
+              displayEmpty
+              sx={{ marginTop: '16px' }}
+            >
+              <MenuItem value="" disabled>
+                Select City
+              </MenuItem>
+              <MenuItem value="Indore">Indore</MenuItem>
+            </Select>
             <TextField
               margin="dense"
               id="pinCode"
@@ -201,17 +230,6 @@ export default function AddressPopup({
               required
               onChange={(e) => handleChange('pinCode', e.target.value)}
             />
-            <TextField
-              margin="dense"
-              id="city"
-              label="Select City"
-              type="text"
-              fullWidth
-              variant="standard"
-              value={formData.city}
-              required
-              onChange={(e) => handleChange('city', e.target.value)}
-            />
           </Box>
           <Box
             display="flex"
@@ -222,13 +240,13 @@ export default function AddressPopup({
           >
             <TextField
               margin="dense"
-              id="state"
-              label="Select State"
+              id="NearestSquare"
+              label="Nearest Square"
               type="tel"
               fullWidth
               variant="standard"
               required
-              value={formData.state}
+              value={formData.square}
               onChange={(e) => handleChange('state', e.target.value)}
             />
             <TextField
@@ -237,6 +255,7 @@ export default function AddressPopup({
               label="Building/House Number"
               type="text"
               fullWidth
+              required
               variant="standard"
               value={formData.roomNumber}
               onChange={(e) => handleChange('roomNumber', e.target.value)}
@@ -255,14 +274,16 @@ export default function AddressPopup({
               label="Road Name"
               type="tel"
               fullWidth
+              required
               variant="standard"
               value={formData.roadName}
               onChange={(e) => handleChange('roadName', e.target.value)}
             />
             <TextField
               margin="dense"
-              id="locality"
-              label="Locality"
+              id="colony"
+              label="Colony Name"
+              required
               type="tel"
               fullWidth
               variant="standard"
@@ -279,16 +300,16 @@ export default function AddressPopup({
           >
             <TextField
               margin="dense"
-              id="alternatemobileNumber"
-              label=" Alternate Mobile Number"
-              type="tel"
+              id="email"
+              label="email"
+              type="text"
               fullWidth
+              required
               variant="standard"
-              value={formData.alternateMobileNumber}
-              onChange={(e) =>
-                handleChange('alternateMobileNumber', e.target.value)
-              }
+              value={formData.email}
+              onChange={(e) => handleChange('email', e.target.value)}
             />
+
             <TextField
               margin="dense"
               id="landmark"
